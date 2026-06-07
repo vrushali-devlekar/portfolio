@@ -39,19 +39,19 @@ function Home() {
           <div className="hero-services">
             <div className="service-pill">
               <span className="pill-num">#01</span>
-              <span className="pill-label">Brand Strategy</span>
+              <span className="pill-label">Design to Code</span>
             </div>
             <div className="service-pill">
               <span className="pill-num">#02</span>
-              <span className="pill-label">Brand Identity Design</span>
+              <span className="pill-label">Scalable Backends</span>
             </div>
             <div className="service-pill">
               <span className="pill-num">#03</span>
-              <span className="pill-label">Packaging Design</span>
+              <span className="pill-label">Modern Web Systems</span>
             </div>
             <div className="service-pill">
               <span className="pill-num">#04</span>
-              <span className="pill-label">Creative Direction</span>
+              <span className="pill-label">Deployment &amp; DevOps</span>
             </div>
           </div>
         </div>
@@ -237,7 +237,7 @@ function Home() {
               <i className="ri-mail-line"></i>
               <div>
                 <small>Email</small>
-                <span>vrushali@devlekar.dev</span>
+                <span>vrushalidevlekar12@gmail.com</span>
               </div>
             </div>
             <div className="contact-row">
