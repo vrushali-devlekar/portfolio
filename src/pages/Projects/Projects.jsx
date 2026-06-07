@@ -1,6 +1,5 @@
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
-import techusImg from "../../public/techus.png";
 import veloraImg from "../../public/velora.png";
 import toursImg from "../../public/tours.png";
 
@@ -12,28 +11,13 @@ function Projects() {
       <section className="project-page">
         <p className="mini">Creative Catalog</p>
         <h1>
-          My <em>Projects</em>
+          My Projects
         </h1>
         <p className="page-desc">
           A collection of platforms, applications, and tools built with design and engineering in mind.
         </p>
 
         <div className="catalog-grid">
-          {/* Card 1 */}
-          <a href="https://techhus.vercel.app/" target="_blank" rel="noopener noreferrer" className="catalog-card">
-            <div className="catalog-img-wrapper">
-              <span className="catalog-img-tag">Learning</span>
-              <img src={techusImg} alt="Tech-Us" className="catalog-img" />
-            </div>
-            
-            <div className="catalog-body">
-              <h3 className="catalog-title">Tech-Us</h3>
-              <p className="catalog-subtitle">Dashboard &amp; learning platform</p>
-              <p className="catalog-desc">
-                A modern dashboard and learning platform supporting live classes, interactive decks, and dynamic branding options.
-              </p>
-            </div>
-          </a>
 
           {/* Card 2 */}
           <a href="https://veloraa-deploy.vercel.app/" target="_blank" rel="noopener noreferrer" className="catalog-card">

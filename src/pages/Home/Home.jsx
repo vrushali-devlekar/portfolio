@@ -2,7 +2,6 @@ import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 import { Link } from "react-router-dom";
 import my1Img from "../../public/my1.png";
-import techusImg from "../../public/techus.png";
 import veloraImg from "../../public/velora.png";
 import toursImg from "../../public/tours.png";
 
@@ -23,8 +22,8 @@ function Home() {
             <div className="hero-left">
               <span className="hero-sub">Hey, I'm a</span>
               <h1 className="hero-title">
-                Creative<br />
-                <span className="hero-title-bold">Developer</span>
+                Vrushali<br />
+                {/* <span className="hero-title-bold">Developer</span> */}
               </h1>
             </div>
 
@@ -115,27 +114,6 @@ function Home() {
         </h2>
 
         <div className="projects-grid">
-          {/* Card 1 */}
-          <Link to="/projects" className="project-card">
-            <div className="project-img-wrapper">
-              <img src={techusImg} alt="Tech-Us" className="project-img" />
-              <button className="project-arrow-btn">
-                <i className="ri-arrow-right-up-line"></i>
-              </button>
-            </div>
-            
-            <h3 className="project-card-title">
-              01. Dashboard &amp; learning platform
-            </h3>
-
-            <div className="project-tags">
-              <span className="tag">Live deck</span>
-              <span className="tag">Teacher live classes</span>
-              <span className="tag">Branding</span>
-              <span className="tag">Update skills</span>
-            </div>
-          </Link>
-
           {/* Card 2 */}
           <Link to="/projects" className="project-card">
             <div className="project-img-wrapper">
@@ -146,7 +124,7 @@ function Home() {
             </div>
             
             <h3 className="project-card-title">
-              02. DevOps Deploy | A Easy UX Dashboard
+              01. DevOps Deploy | A Easy UX Dashboard
             </h3>
 
             <div className="project-tags">
@@ -167,7 +145,7 @@ function Home() {
             </div>
             
             <h3 className="project-card-title">
-              03. Tourism Booking Web Application
+              02. Tourism Booking Web Application
             </h3>
 
             <div className="project-tags">

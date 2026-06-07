@@ -45,7 +45,7 @@ select {
   --ink-soft: #888888;
   --accent: #ff4500;
   --accent2: #ff6b35;
-  --white: #f1efef;
+  --white: #ffffff;
   --border: rgba(0, 0, 0, 0.08);
   --border-dark: rgba(0, 0, 0, 0.16);
 }
@@ -96,10 +96,15 @@ select {
   border-bottom: 1px solid var(--border-dark);
 }
 .navbar .logo {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 1.6rem;
-  color: var(--ink);
-  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+}
+.navbar .logo-img {
+  height: 38px;
+  width: auto;
+  display: block;
+  border-radius: 6px;
+  object-fit: cover;
 }
 .nav-links {
   display: flex;
@@ -197,11 +202,11 @@ select {
 }
 
 .hero-title {
-  font-family: "DM Sans", sans-serif;
-  font-size: clamp(2.3rem, 4.8vw, 3.8rem);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
   font-weight: 700;
   line-height: 0.95;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.02em;
   color: #ffffff;
   margin: 0;
 }
@@ -322,11 +327,11 @@ select {
   color: rgba(255, 255, 255, 0.7);
 }
 .about .left h2 {
-  font-family: "DM Sans", sans-serif;
-  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(2.8rem, 6.5vw, 5rem);
   font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
   margin-bottom: 1.6rem;
   color: #ffffff;
 }
@@ -404,8 +409,8 @@ select {
 
 .projects-showcase-title {
   text-align: center;
-  font-family: "DM Sans", sans-serif;
-  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
   font-weight: 700;
   color: var(--ink);
   margin-bottom: 4rem;
@@ -413,7 +418,7 @@ select {
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.02em;
 }
 
 .projects-showcase-title .spark {
@@ -423,7 +428,8 @@ select {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(300px, 450px));
+  justify-content: center;
   gap: 2.2rem;
   max-width: 1400px;
   margin: 0 auto;
@@ -439,7 +445,7 @@ select {
 .project-img-wrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 1.6;
+  aspect-ratio: 2.2;
   border-radius: 12px;
   overflow: visible;
   margin-bottom: 1.5rem;
@@ -496,13 +502,13 @@ select {
 }
 
 .project-card-title {
-  font-family: "DM Sans", sans-serif;
-  font-size: 1.1rem;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.4rem;
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.2;
   color: var(--ink);
   margin: 0.8rem 0 0.6rem;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.02em;
   transition: color 0.2s;
 }
 
@@ -589,7 +595,9 @@ select {
 /* ─── SERVICES ────────────────────────────────────── */
 .services {
   padding: 6rem 3.5rem;
-  background: var(--ink);
+  background-image: repeating-linear-gradient(to right, transparent, transparent 18px, rgba(0, 0, 0, 0.04) 18px, rgba(0, 0, 0, 0.04) 20px),
+                    radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.15) 0%, transparent 60%),
+                    radial-gradient(circle at 80% 50%, #d81b60 0%, #20000f 100%);
   color: var(--white);
   position: relative;
   overflow: hidden;
@@ -627,12 +635,14 @@ select {
 }
 .service-card {
   padding: 2rem;
-  background: var(--ink);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   transition: background 0.25s;
 }
 .service-card:hover,
 .service-card.active {
-  background: #1a1a1a;
+  background: rgba(255, 255, 255, 0.08);
 }
 .service-card i {
   font-size: 1.5rem;
@@ -844,11 +854,11 @@ select {
   color: var(--accent);
 }
 .project-page h1 {
-  font-family: "DM Sans", sans-serif;
-  font-size: clamp(2.8rem, 8vw, 4.5rem);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(3.2rem, 9vw, 5.5rem);
   font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
   margin-bottom: 0.8rem;
   color: var(--ink);
 }
@@ -925,13 +935,13 @@ select {
 }
 
 .catalog-title {
-  font-family: "DM Sans", sans-serif;
-  font-size: 1.15rem;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.4rem;
   font-weight: 700;
   color: #111111;
-  line-height: 1.35;
+  line-height: 1.2;
   margin: 0 0 0.4rem;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.02em;
   transition: color 0.2s;
 }
 
@@ -1120,4 +1130,22 @@ select {
 }
 .hero-left > *:nth-child(4) {
   animation-delay: 0.4s;
+}
+
+/* ─── CONTACT RESPONSIVENESS ──────────────────────── */
+@media (max-width: 992px) {
+  .contact {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+    padding: 5rem 2.5rem;
+  }
+}
+@media (max-width: 576px) {
+  .contact {
+    padding: 4rem 1.5rem;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
 }
