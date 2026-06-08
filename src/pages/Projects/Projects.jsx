@@ -9,45 +9,56 @@ function Projects() {
       <Navbar />
 
       <section className="project-page">
-        <p className="mini">Creative Catalog</p>
-        <h1>
-          My Projects
+        <p className="mini">Selected Work</p>
+        <h1 className="projects-page-title">
+          Projects
         </h1>
         <p className="page-desc">
-          A collection of platforms, applications, and tools built with design and engineering in mind.
+          A focused showcase of digital systems, platforms, and interactive interfaces built with precision.
         </p>
 
         <div className="catalog-grid">
-
-          {/* Card 2 */}
+          {/* Card 1 */}
           <a href="https://veloraa-deploy.vercel.app/" target="_blank" rel="noopener noreferrer" className="catalog-card">
             <div className="catalog-img-wrapper">
-              <span className="catalog-img-tag">DevOps</span>
               <img src={veloraImg} alt="Velora Deploy" className="catalog-img" />
+              <div className="card-arrow-badge">
+                <i className="ri-arrow-right-up-line"></i>
+              </div>
             </div>
             
             <div className="catalog-body">
-              <h3 className="catalog-title">Velora Deploy</h3>
-              <p className="catalog-subtitle">DevOps Deploy | A Easy UX Dashboard</p>
-              <p className="catalog-desc">
-                A clean DevOps deployment platform featuring one-click setup, project tracking, and an intuitive dashboard.
-              </p>
+              <h3 className="catalog-title">
+                01. DEVOPS DEPLOY | A EASY UX DASHBOARD
+              </h3>
+              <div className="catalog-tags">
+                <span className="tag-pill">One Click</span>
+                <span className="tag-pill">Track your Projects</span>
+                <span className="tag-pill">UX case study</span>
+                <span className="tag-pill">User Testing</span>
+              </div>
             </div>
           </a>
 
-          {/* Card 3 */}
+          {/* Card 2 */}
           <a href="https://pack-explore.onrender.com/" target="_blank" rel="noopener noreferrer" className="catalog-card">
             <div className="catalog-img-wrapper">
-              <span className="catalog-img-tag">Tourism</span>
               <img src={toursImg} alt="Pack &amp; Explore" className="catalog-img" />
+              <div className="card-arrow-badge">
+                <i className="ri-arrow-right-up-line"></i>
+              </div>
             </div>
             
             <div className="catalog-body">
-              <h3 className="catalog-title">Pack &amp; Explore</h3>
-              <p className="catalog-subtitle">Tourism Booking Web Application</p>
-              <p className="catalog-desc">
-                A travel booking platform designed for exploring global tours, scheduling visits, and discovering destinations.
-              </p>
+              <h3 className="catalog-title">
+                02. TOURISM BOOKING | PACK &amp; EXPLORE
+              </h3>
+              <div className="catalog-tags">
+                <span className="tag-pill">Tourism</span>
+                <span className="tag-pill">Booking</span>
+                <span className="tag-pill">Destination Search</span>
+                <span className="tag-pill">Schedule Visits</span>
+              </div>
             </div>
           </a>
         </div>

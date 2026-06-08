@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.preloader-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: #000000;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s ease, visibility 0.8s;
+  pointer-events: none;
+}
+
+.preloader-overlay.transitioning {
+  background-color: transparent;
+}
+
+.preloader-overlay.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.preloader-overlay canvas {
+  display: block;
+}
