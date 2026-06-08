@@ -990,9 +990,9 @@ select {
   overflow: hidden;
   margin-bottom: 1.2rem;
 }
-.catalog-img-wrapper .card-arrow-badge {
+/* .catalog-img-wrapper .card-arrow-badge {
   display: none;
-}
+} */
 .catalog-img {
   width: 100%;
   height: 100%;
