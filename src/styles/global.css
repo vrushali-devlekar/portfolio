@@ -823,7 +823,7 @@ select {
 .services-control-btn:active {
   transform: scale(0.95);
 }
-
+/* //service  */
 .services-slider {
   display: flex;
   gap: 1.8rem;
