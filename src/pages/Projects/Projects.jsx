@@ -22,8 +22,9 @@ function Projects() {
           <a href="https://veloraa-deploy.vercel.app/" target="_blank" rel="noopener noreferrer" className="catalog-card">
             <div className="catalog-img-wrapper">
               <img src={veloraImg} alt="Velora Deploy" className="catalog-img" />
-              <div className="card-arrow-badge">
-                <i className="ri-arrow-right-up-line"></i>
+              <div className="catalog-live-badge">
+                <span className="live-dot"></span>
+                live
               </div>
             </div>
             
@@ -44,8 +45,9 @@ function Projects() {
           <a href="https://pack-explore.onrender.com/" target="_blank" rel="noopener noreferrer" className="catalog-card">
             <div className="catalog-img-wrapper">
               <img src={toursImg} alt="Pack &amp; Explore" className="catalog-img" />
-              <div className="card-arrow-badge">
-                <i className="ri-arrow-right-up-line"></i>
+              <div className="catalog-live-badge">
+                <span className="live-dot"></span>
+                live
               </div>
             </div>
             

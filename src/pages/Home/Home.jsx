@@ -1,15 +1,45 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { useLenis } from "lenis/react";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
-import my1Img from "../../public/my1.png";
+import port1Img from "../../public/port-1.png";
 import veloraImg from "../../public/velora.png";
 import toursImg from "../../public/tours.png";
+import frontend3d from "../../public/frontend_3d.png";
+import backend3d from "../../public/backend_3d.png";
+import fullstack3d from "../../public/fullstack_3d.png";
+import uiux3d from "../../public/uiux_3d.png";
+import devops3d from "../../public/devops_3d.png";
 
 function Home() {
   const { hash } = useLocation();
   const lenis = useLenis();
+  const sliderRef = useRef(null);
+
+  const scrollLeft = () => {
+    if (sliderRef.current) {
+      const card = sliderRef.current.querySelector(".service-card");
+      if (card) {
+        const style = window.getComputedStyle(sliderRef.current);
+        const gap = parseInt(style.gap || "0", 10);
+        const scrollAmount = card.clientWidth + gap;
+        sliderRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+      }
+    }
+  };
+
+  const scrollRight = () => {
+    if (sliderRef.current) {
+      const card = sliderRef.current.querySelector(".service-card");
+      if (card) {
+        const style = window.getComputedStyle(sliderRef.current);
+        const gap = parseInt(style.gap || "0", 10);
+        const scrollAmount = card.clientWidth + gap;
+        sliderRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      }
+    }
+  };
 
   useEffect(() => {
     if (hash && lenis) {
@@ -33,32 +63,77 @@ function Home() {
 
       {/* ── HERO ────────────────────────────────── */}
       <section className="hero" id="home">
+        {/* Background image container for port-1.png */}
+        <div className="hero-bg-wrapper">
+          <img
+            src={port1Img}
+            alt="Vrushali Devlekar Silhouette"
+            className="hero-bg-img"
+          />
+          <div className="hero-bg-overlay"></div>
+        </div>
+
         <div className="hero-container">
-          <div className="hero-editorial-middle">
-            <div className="hero-editorial-text left">
-              <span className="hero-intro-label">Hey, I'm a</span>
-              <h2 className="hero-name-title">VRUSHALI</h2>
+          {/* Top Bar inside hero */}
+          <div className="hero-top-bar">
+            <div className="status-badge">
+              <span className="status-dot"></span>
+              <span className="status-text">Open to work</span>
             </div>
+            <Link to="/contact" className="download-cv-btn">
+              Get in Touch
+            </Link>
+          </div>
 
-            <div className="hero-editorial-portrait">
-              <div className="hero-portrait-container">
-                <img src={my1Img} alt="Vrushali Devlekar" className="hero-portrait-img" />
-                <div className="hero-portrait-overlay"></div>
-              </div>
-            </div>
+          {/* Main Hero Content */}
+          <div className="hero-main-content">
+            <span className="hero-subtitle">Full Stack Developer</span>
+            <h1 className="hero-title">
+              Vrushali
+              <br />
+              Devlekar
+            </h1>
 
-            <div className="hero-editorial-text right">
-              <h3 className="hero-editorial-quote">Great design should feel invisible.</h3>
-              <p className="hero-editorial-desc">
-                Frontend developer crafting interfaces that feel as good as they look where clean code meets intentional design.
-              </p>
-              <div className="hero-ctas">
-                <a href="#work" onClick={(e) => handleNavClick(e, "#work")} className="btn primary-btn">
-                  View Projects
-                </a>
-                <a href="#contact" onClick={(e) => handleNavClick(e, "#contact")} className="btn secondary-btn">
-                  Contact Me
-                </a>
+            {/* Contact Info Grid */}
+            <div className="hero-contact-grid">
+              <a
+                href="mailto:vrushali.devlekar@gmail.com"
+                className="hero-contact-item"
+              >
+                <div className="icon-box">
+                  <i className="ri-mail-line"></i>
+                </div>
+                <span className="contact-text">vrushali.devlekar@gmail.com</span>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/vrushali-devlekar/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-contact-item"
+              >
+                <div className="icon-box">
+                  <i className="ri-linkedin-box-fill"></i>
+                </div>
+                <span className="contact-text">
+                  linkedin.com/in/vrushali-devlekar
+                </span>
+              </a>
+              <a
+                href="https://github.com/vrushali-devlekar"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-contact-item"
+              >
+                <div className="icon-box">
+                  <i className="ri-github-fill"></i>
+                </div>
+                <span className="contact-text">github.com/vrushali-devlekar</span>
+              </a>
+              <div className="hero-contact-item">
+                <div className="icon-box">
+                  <i className="ri-map-pin-line"></i>
+                </div>
+                <span className="contact-text">Mumbai, India</span>
               </div>
             </div>
           </div>
@@ -72,42 +147,89 @@ function Home() {
             <span className="mini">WHO I AM</span>
             <h2>A thoughtful developer bridging code and context.</h2>
             <p>
-              I am a full-stack engineer and designer based in Mumbai, collaborating with companies globally to craft digital systems that feel natural, perform flawlessly, and scale elegantly.
+              I am a full-stack engineer and designer based in Mumbai,
+              collaborating with companies globally to craft digital systems
+              that feel natural, perform flawlessly, and scale elegantly.
             </p>
             <p>
-              I focus on minimal, performance-driven interfaces, robust API infrastructures, and intentional product strategies. My practice is centered on structural integrity and human experience.
+              I focus on minimal, performance-driven interfaces, robust API
+              infrastructures, and intentional product strategies. My practice
+              is centered on structural integrity and human experience.
             </p>
-            <a href="#contact" onClick={(e) => handleNavClick(e, "#contact")} className="about-link">
+            {/* <a
+              href="#contact"
+              onClick={(e) => handleNavClick(e, "#contact")}
+              className="about-link"
+            >
               Work with me <i className="ri-arrow-right-line"></i>
-            </a>
+            </a> */}
           </div>
 
           <div className="about-right">
-            <div className="stack-grid">
-              <div className="stack-card">
-                <span className="stack-num">01</span>
-                <h3>React &amp; Next.js</h3>
-                <p>Frontend Engineering</p>
+            <div className="tech-logo-grid">
+              <div className="tech-logo-item">
+                <img
+                  src="https://cdn.simpleicons.org/mongodb"
+                  alt="MongoDB"
+                  className="tech-logo-img"
+                />
+                <span className="tech-logo-label">MongoDB</span>
               </div>
-              <div className="stack-card">
-                <span className="stack-num">02</span>
-                <h3>Node.js &amp; Express</h3>
-                <p>APIs &amp; Microservices</p>
+              <div className="tech-logo-item">
+                <img
+                  src="https://cdn.simpleicons.org/express/ffffff"
+                  alt="Express"
+                  className="tech-logo-img"
+                />
+                <span className="tech-logo-label">Express</span>
               </div>
-              <div className="stack-card">
-                <span className="stack-num">03</span>
-                <h3>MongoDB</h3>
-                <p>Database Management</p>
+              <div className="tech-logo-item">
+                <img
+                  src="https://cdn.simpleicons.org/react"
+                  alt="React"
+                  className="tech-logo-img"
+                />
+                <span className="tech-logo-label">React</span>
               </div>
-              <div className="stack-card">
-                <span className="stack-num">04</span>
-                <h3>Tailwind CSS</h3>
-                <p>Utility First Styling</p>
+              <div className="tech-logo-item">
+                <img
+                  src="https://cdn.simpleicons.org/nodedotjs"
+                  alt="Node"
+                  className="tech-logo-img"
+                />
+                <span className="tech-logo-label">Node</span>
               </div>
-              <div className="stack-card">
-                <span className="stack-num">05</span>
-                <h3>Figma</h3>
-                <p>UI/UX Design Systems</p>
+              <div className="tech-logo-item">
+                <img
+                  src="https://cdn.simpleicons.org/javascript"
+                  alt="JavaScript"
+                  className="tech-logo-img"
+                />
+                <span className="tech-logo-label">JavaScript</span>
+              </div>
+              <div className="tech-logo-item">
+                <img
+                  src="https://cdn.simpleicons.org/tailwindcss"
+                  alt="TailwindCSS"
+                  className="tech-logo-img"
+                />
+                <span className="tech-logo-label">TailwindCSS</span>
+              </div>
+              <div className="tech-logo-item">
+                <img
+                  src="https://cdn.simpleicons.org/sass"
+                  alt="Sass"
+                  className="tech-logo-img"
+                />
+                <span className="tech-logo-label">Sass</span>
+              </div>
+              <div className="tech-logo-item">
+                <img
+                  src="https://cdn.simpleicons.org/redis"
+                  alt="Redis"
+                  className="tech-logo-img"
+                />
+                <span className="tech-logo-label">Redis</span>
               </div>
             </div>
           </div>
@@ -125,7 +247,11 @@ function Home() {
           {/* Card 1 */}
           <Link to="/projects" className="project-card">
             <div className="project-img-wrapper">
-              <img src={veloraImg} alt="Velora Deploy Dashboard" className="project-img" />
+              <img
+                src={veloraImg}
+                alt="Velora Deploy Dashboard"
+                className="project-img"
+              />
               <div className="card-arrow-badge">
                 <i className="ri-arrow-right-up-line"></i>
               </div>
@@ -134,19 +260,23 @@ function Home() {
               <h3 className="project-card-title">
                 01. DEVOPS DEPLOY | A EASY UX DASHBOARD
               </h3>
-              <div className="project-card-tags">
+              {/* <div className="project-card-tags">
                 <span className="tag-pill">One Click</span>
                 <span className="tag-pill">Track your Projects</span>
                 <span className="tag-pill">UX case study</span>
                 <span className="tag-pill">User Testing</span>
-              </div>
+              </div> */}
             </div>
           </Link>
 
           {/* Card 2 */}
           <Link to="/projects" className="project-card">
             <div className="project-img-wrapper">
-              <img src={toursImg} alt="Tours Booking Web Application" className="project-img" />
+              <img
+                src={toursImg}
+                alt="Tours Booking Web Application"
+                className="project-img"
+              />
               <div className="card-arrow-badge">
                 <i className="ri-arrow-right-up-line"></i>
               </div>
@@ -155,12 +285,12 @@ function Home() {
               <h3 className="project-card-title">
                 02. TOURISM BOOKING | PACK &amp; EXPLORE
               </h3>
-              <div className="project-card-tags">
+              {/* <div className="project-card-tags">
                 <span className="tag-pill">Tourism</span>
                 <span className="tag-pill">Booking</span>
                 <span className="tag-pill">Destination Search</span>
                 <span className="tag-pill">Schedule Visits</span>
-              </div>
+              </div> */}
             </div>
           </Link>
         </div>
@@ -169,111 +299,99 @@ function Home() {
       {/* ── SERVICES ────────────────────────────── */}
       <section className="services" id="services">
         <div className="services-header">
-          <span className="mini">CAPABILITIES</span>
-          <h2 className="section-title">Services</h2>
-        </div>
-
-        <div className="service-grid">
-          <div className="service-card">
-            <i className="ri-code-box-line"></i>
-            <h3>Frontend Development</h3>
-            <p>
-              Building responsive, semantic, and high-performance interfaces using modern framework ecosystems.
-            </p>
-          </div>
-          <div className="service-card">
-            <i className="ri-database-2-line"></i>
-            <h3>Backend Development</h3>
-            <p>
-              Designing secure databases, optimized API architectures, and scalable server-side systems.
-            </p>
-          </div>
-          <div className="service-card">
-            <i className="ri-instance-line"></i>
-            <h3>Full Stack Applications</h3>
-            <p>
-              Developing unified web environments with clean boundaries between presentation and server state.
-            </p>
-          </div>
-          <div className="service-card">
-            <i className="ri-palette-line"></i>
-            <h3>UI / UX Design</h3>
-            <p>
-              Creating design systems, journey maps, and high-fidelity wireframes that balance aesthetics with usability.
-            </p>
-          </div>
-          <div className="service-card">
-            <i className="ri-server-line"></i>
-            <h3>Deployment &amp; DevOps</h3>
-            <p>
-              Configuring CI/CD pipelines, containerized deployments, and robust hosting on cloud platforms.
-            </p>
+          <h2 className="services-section-title">Our service</h2>
+          <div className="services-controls">
+            <button
+              className="services-control-btn"
+              onClick={scrollLeft}
+              aria-label="Previous service"
+            >
+              <i className="ri-arrow-left-line"></i>
+            </button>
+            <button
+              className="services-control-btn"
+              onClick={scrollRight}
+              aria-label="Next service"
+            >
+              <i className="ri-arrow-right-line"></i>
+            </button>
           </div>
         </div>
-      </section>
 
-      {/* ── CONTACT ─────────────────────────────── */}
-      <section className="contact" id="contact">
-        <div className="contact-container">
-          <div className="contact-left">
-            <span className="mini">GET IN TOUCH</span>
-            <h2 className="editorial-contact-title">
-              LET'S BUILD<br />
-              SOMETHING<br />
-              <em>TOGETHER</em>
-            </h2>
-            <p>
-              Whether you have a fully scoped product or a rough idea, I would love to hear from you. Let's figure out what is possible.
-            </p>
-
-            <div className="contact-details">
-              <div className="contact-link-row">
-                <i className="ri-mail-line"></i>
-                <span>vrushalidevlekar12@gmail.com</span>
-              </div>
-              <div className="contact-link-row">
-                <i className="ri-map-pin-line"></i>
-                <span>Mumbai, India · Remote</span>
-              </div>
+        <div className="services-slider" ref={sliderRef}>
+          {/* Card 1 */}
+          <div className="service-card">
+            <div className="service-card-info">
+              <span className="service-card-num">(01)</span>
+              <h3 className="service-card-title">Frontend Development</h3>
+              <p className="service-card-desc">
+                Building responsive, semantic, and high-performance interfaces
+                using modern framework ecosystems.
+              </p>
+            </div>
+            <div className="service-card-icon-wrapper">
+              <i className="ri-code-box-line service-card-icon"></i>
             </div>
           </div>
 
-          <div className="contact-right">
-            <form className="contact-form">
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Your Name</label>
-                  <input type="text" placeholder="Alex Morgan" />
-                </div>
-                <div className="form-group">
-                  <label>Email Address</label>
-                  <input type="email" placeholder="alex@company.com" />
-                </div>
-              </div>
+          {/* Card 2 */}
+          <div className="service-card">
+            <div className="service-card-info">
+              <span className="service-card-num">(02)</span>
+              <h3 className="service-card-title">Backend Development</h3>
+              <p className="service-card-desc">
+                Designing secure databases, optimized API architectures, and
+                scalable server-side systems.
+              </p>
+            </div>
+            <div className="service-card-icon-wrapper">
+              <i className="ri-database-2-line service-card-icon"></i>
+            </div>
+          </div>
 
-              <div className="form-group">
-                <label>Subject</label>
-                <select>
-                  <option value="">Select an option…</option>
-                  <option>Freelance Project</option>
-                  <option>Full-time Opportunity</option>
-                  <option>Collaboration</option>
-                  <option>Just saying hi</option>
-                </select>
-              </div>
+          {/* Card 3 */}
+          <div className="service-card">
+            <div className="service-card-info">
+              <span className="service-card-num">(03)</span>
+              <h3 className="service-card-title">Full Stack Applications</h3>
+              <p className="service-card-desc">
+                Developing unified web environments with clean boundaries
+                between presentation and server state.
+              </p>
+            </div>
+            <div className="service-card-icon-wrapper">
+              <i className="ri-instance-line service-card-icon"></i>
+            </div>
+          </div>
 
-              <div className="form-group">
-                <label>Message</label>
-                <textarea placeholder="Tell me about your project, timeline, and budget…"></textarea>
-              </div>
+          {/* Card 4 */}
+          <div className="service-card">
+            <div className="service-card-info">
+              <span className="service-card-num">(04)</span>
+              <h3 className="service-card-title">UI / UX Design</h3>
+              <p className="service-card-desc">
+                Creating design systems, journey maps, and high-fidelity
+                wireframes that balance aesthetics with usability.
+              </p>
+            </div>
+            <div className="service-card-icon-wrapper">
+              <i className="ri-palette-line service-card-icon"></i>
+            </div>
+          </div>
 
-              <div className="form-submit">
-                <span className="privacy-note">Your details remain private.</span>
-                <button type="submit" className="btn submit-btn">
-                  Send Message <i className="ri-arrow-right-line"></i>
-                </button>
-              </div>
-            </form>
+          {/* Card 5 */}
+          <div className="service-card">
+            <div className="service-card-info">
+              <span className="service-card-num">(05)</span>
+              <h3 className="service-card-title">Deployment &amp; DevOps</h3>
+              <p className="service-card-desc">
+                Configuring CI/CD pipelines, containerized deployments, and
+                robust hosting on cloud platforms.
+              </p>
+            </div>
+            <div className="service-card-icon-wrapper">
+              <i className="ri-server-line service-card-icon"></i>
+            </div>
           </div>
         </div>
       </section>
