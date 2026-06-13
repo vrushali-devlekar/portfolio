@@ -2,6 +2,7 @@ import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 import veloraImg from "../../public/velora.png";
 import toursImg from "../../public/tours.png";
+import gameImg from "../../public/game.png";
 
 function Projects() {
   return (
@@ -63,6 +64,29 @@ function Projects() {
               </div>
             </div>
           </a>
+
+          {/* Card 3 */}
+          <div className="catalog-card disabled">
+            <div className="catalog-img-wrapper">
+              <img src={gameImg} alt="Gaming Stream" className="catalog-img" />
+              <div className="catalog-live-badge dev-badge">
+                <span className="dev-dot"></span>
+                development
+              </div>
+            </div>
+            
+            <div className="catalog-body">
+              <h3 className="catalog-title">
+                03. GAMING STREAM | SASS DASHBOARD
+              </h3>
+              <div className="catalog-tags">
+                <span className="tag-pill">Streaming</span>
+                <span className="tag-pill">SaaS Dashboard</span>
+                <span className="tag-pill">Interactive UI</span>
+                <span className="tag-pill">Game Metrics</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

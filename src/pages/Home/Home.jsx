@@ -6,6 +6,7 @@ import Footer from "../../components/layout/Footer";
 import port1Img from "../../public/port-1.png";
 import veloraImg from "../../public/velora.png";
 import toursImg from "../../public/tours.png";
+import gameImg from "../../public/game.png";
 import frontend3d from "../../public/frontend_3d.png";
 import backend3d from "../../public/backend_3d.png";
 import fullstack3d from "../../public/fullstack_3d.png";
@@ -293,6 +294,26 @@ function Home() {
               </div> */}
             </div>
           </Link>
+
+          {/* Card 3 */}
+          <div className="project-card disabled">
+            <div className="project-img-wrapper">
+              <img
+                src={gameImg}
+                alt="Gaming Stream Dashboard"
+                className="project-img"
+              />
+              <div className="catalog-live-badge dev-badge">
+                <span className="dev-dot"></span>
+                development
+              </div>
+            </div>
+            <div className="project-card-body">
+              <h3 className="project-card-title">
+                03. GAMING STREAM | SASS DASHBOARD
+              </h3>
+            </div>
+          </div>
         </div>
       </section>
 

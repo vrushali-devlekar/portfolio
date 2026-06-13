@@ -1995,3 +1995,72 @@ select {
     transform 1.5s cubic-bezier(0.25, 1, 0.5, 1),
     opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
+
+/* ─── DISABLED PROJECT CARDS & DEV BADGE ─────────── */
+.catalog-card.disabled,
+.project-card.disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: var(--border) !important;
+}
+
+.catalog-card.disabled:hover .catalog-img,
+.project-card.disabled:hover .project-img {
+  transform: none !important;
+}
+
+.catalog-card.disabled:hover .catalog-title,
+.project-card.disabled:hover .project-card-title {
+  color: var(--ink) !important;
+}
+
+.catalog-card.disabled:hover .tag-pill,
+.project-card.disabled:hover .tag-pill {
+  border-color: var(--border) !important;
+  color: var(--ink-mid) !important;
+}
+
+.project-card.disabled .card-arrow-badge {
+  display: none !important;
+}
+
+/* Development Badge styling */
+.catalog-live-badge.dev-badge {
+  color: #f59e0b !important;
+  border-color: rgba(245, 158, 11, 0.3) !important;
+}
+
+.catalog-card.disabled:hover .catalog-live-badge.dev-badge {
+  background: rgba(10, 10, 10, 0.72) !important;
+  color: #f59e0b !important;
+  border-color: rgba(245, 158, 11, 0.3) !important;
+  box-shadow: none !important;
+}
+
+.dev-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #f59e0b;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #f59e0b;
+  display: inline-block;
+  animation: devPulse 1.6s infinite ease-in-out;
+}
+
+@keyframes devPulse {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.92);
+    opacity: 0.6;
+  }
+}
+
