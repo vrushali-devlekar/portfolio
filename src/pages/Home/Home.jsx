@@ -1,6 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { useLenis } from "lenis/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 import port1Img from "../../public/port-1.png";
@@ -12,6 +16,7 @@ import backend3d from "../../public/backend_3d.png";
 import fullstack3d from "../../public/fullstack_3d.png";
 import uiux3d from "../../public/uiux_3d.png";
 import devops3d from "../../public/devops_3d.png";
+import awsImg from "../../public/aws.svg";
 
 function Home() {
   const { hash } = useLocation();
@@ -50,6 +55,178 @@ function Home() {
       return () => clearTimeout(timeoutId);
     }
   }, [hash, lenis]);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // 1. Hero Entrance Animations (on page load)
+      // Background Image scaling down & fading in
+      gsap.fromTo(
+        ".hero-bg-wrapper",
+        { opacity: 0, scale: 1.1 },
+        { opacity: 1, scale: 1, duration: 1.6, ease: "power2.out" },
+      );
+
+      // Top Navigation bar fading in & dropping down
+      gsap.fromTo(
+        ".hero-top-bar",
+        { opacity: 0, y: -20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.2 },
+      );
+
+      // Subtitle (Full Stack Developer) fade-in
+      gsap.fromTo(
+        ".hero-subtitle",
+        { opacity: 0, x: -30 },
+        { opacity: 1, x: 0, duration: 0.8, ease: "power2.out", delay: 0.3 },
+      );
+
+      // Letters of the name staggered reveal (Loads left-to-right countdown-style)
+      gsap.fromTo(
+        ".hero-name-char",
+        {
+          opacity: 0,
+          x: -25,
+          scale: 0.7,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.04,
+          ease: "back.out(1.5)",
+          delay: 0.4,
+        },
+      );
+
+      // Contact Grid Items staggered float up
+      gsap.fromTo(
+        ".hero-contact-item",
+        { opacity: 0, y: 25 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.1,
+          delay: 0.8,
+        },
+      );
+
+      // 2. Scroll-Triggered Section Fade-in Animations
+      // About Left content fade-in
+      gsap.fromTo(
+        ".about-left",
+        { opacity: 0, x: -40 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.9,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".about",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        },
+      );
+
+      // Work Header fade-in
+      gsap.fromTo(
+        ".work-header",
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".work",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        },
+      );
+
+      // Project Cards staggered slide up
+      gsap.fromTo(
+        ".project-card",
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".projects-grid",
+            start: "top 82%",
+            toggleActions: "play none none none",
+          },
+        },
+      );
+
+      // Services Header fade-in
+      gsap.fromTo(
+        ".services-header",
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".services",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        },
+      );
+
+      // Service Cards staggered slide up
+      gsap.fromTo(
+        ".service-card",
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".services-slider",
+            start: "top 82%",
+            toggleActions: "play none none none",
+          },
+        },
+      );
+
+      // 3. Staggered logo items inside About section
+      gsap.fromTo(
+        ".tech-logo-item",
+        {
+          opacity: 0,
+          x: -30,
+          scale: 0.85,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 0.5,
+          ease: "power2.out",
+          stagger: 0.08,
+          scrollTrigger: {
+            trigger: ".tech-logo-grid",
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        },
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
@@ -90,9 +267,28 @@ function Home() {
           <div className="hero-main-content">
             <span className="hero-subtitle">Full Stack Developer</span>
             <h1 className="hero-title">
-              Vrushali
-              <br />
-              Devlekar
+              <span className="hero-name-line" style={{ display: "block" }}>
+                {"Vrushali".split("").map((char, index) => (
+                  <span
+                    key={index}
+                    className="hero-name-char"
+                    style={{ display: "inline-block" }}
+                  >
+                    {char}
+                  </span>
+                ))}
+              </span>
+              <span className="hero-name-line" style={{ display: "block" }}>
+                {"Devlekar".split("").map((char, index) => (
+                  <span
+                    key={index}
+                    className="hero-name-char"
+                    style={{ display: "inline-block" }}
+                  >
+                    {char}
+                  </span>
+                ))}
+              </span>
             </h1>
 
             {/* Contact Info Grid */}
@@ -104,7 +300,9 @@ function Home() {
                 <div className="icon-box">
                   <i className="ri-mail-line"></i>
                 </div>
-                <span className="contact-text">vrushali.devlekar@gmail.com</span>
+                <span className="contact-text">
+                  vrushalidevlekar12@gmail.com
+                </span>
               </a>
               <a
                 href="https://www.linkedin.com/in/vrushali-devlekar/"
@@ -128,7 +326,9 @@ function Home() {
                 <div className="icon-box">
                   <i className="ri-github-fill"></i>
                 </div>
-                <span className="contact-text">github.com/vrushali-devlekar</span>
+                <span className="contact-text">
+                  github.com/vrushali-devlekar
+                </span>
               </a>
               <div className="hero-contact-item">
                 <div className="icon-box">
@@ -231,6 +431,22 @@ function Home() {
                   className="tech-logo-img"
                 />
                 <span className="tech-logo-label">Redis</span>
+              </div>
+              <div className="tech-logo-item">
+                <img
+                  src={awsImg}
+                  alt="AWS"
+                  className="tech-logo-img"
+                />
+                <span className="tech-logo-label">AWS</span>
+              </div>
+              <div className="tech-logo-item">
+                <img
+                  src="https://cdn.simpleicons.org/docker"
+                  alt="Docker"
+                  className="tech-logo-img"
+                />
+                <span className="tech-logo-label">Docker</span>
               </div>
             </div>
           </div>
@@ -342,77 +558,62 @@ function Home() {
         <div className="services-slider" ref={sliderRef}>
           {/* Card 1 */}
           <div className="service-card">
-            <div className="service-card-info">
-              <span className="service-card-num">(01)</span>
-              <h3 className="service-card-title">Frontend Development</h3>
-              <p className="service-card-desc">
-                Building responsive, semantic, and high-performance interfaces
-                using modern framework ecosystems.
-              </p>
+            <div className="service-card-icon-box">
+              <i className="ri-window-line service-card-icon"></i>
             </div>
-            <div className="service-card-icon-wrapper">
-              <i className="ri-code-box-line service-card-icon"></i>
-            </div>
+            <h3 className="service-card-title">Frontend Development</h3>
+            <p className="service-card-desc">
+              Building responsive, semantic, and high-performance interfaces
+              using modern framework ecosystems.
+            </p>
           </div>
 
           {/* Card 2 */}
           <div className="service-card">
-            <div className="service-card-info">
-              <span className="service-card-num">(02)</span>
-              <h3 className="service-card-title">Backend Development</h3>
-              <p className="service-card-desc">
-                Designing secure databases, optimized API architectures, and
-                scalable server-side systems.
-              </p>
-            </div>
-            <div className="service-card-icon-wrapper">
+            <div className="service-card-icon-box">
               <i className="ri-database-2-line service-card-icon"></i>
             </div>
+            <h3 className="service-card-title">Backend Development</h3>
+            <p className="service-card-desc">
+              Designing secure databases, optimized API architectures, and
+              scalable server-side systems.
+            </p>
           </div>
 
           {/* Card 3 */}
           <div className="service-card">
-            <div className="service-card-info">
-              <span className="service-card-num">(03)</span>
-              <h3 className="service-card-title">Full Stack Applications</h3>
-              <p className="service-card-desc">
-                Developing unified web environments with clean boundaries
-                between presentation and server state.
-              </p>
+            <div className="service-card-icon-box">
+              <i className="ri-stack-line service-card-icon"></i>
             </div>
-            <div className="service-card-icon-wrapper">
-              <i className="ri-instance-line service-card-icon"></i>
-            </div>
+            <h3 className="service-card-title">Full Stack Applications</h3>
+            <p className="service-card-desc">
+              Developing unified web environments with clean boundaries between
+              presentation and server state.
+            </p>
           </div>
 
           {/* Card 4 */}
           <div className="service-card">
-            <div className="service-card-info">
-              <span className="service-card-num">(04)</span>
-              <h3 className="service-card-title">UI / UX Design</h3>
-              <p className="service-card-desc">
-                Creating design systems, journey maps, and high-fidelity
-                wireframes that balance aesthetics with usability.
-              </p>
-            </div>
-            <div className="service-card-icon-wrapper">
+            <div className="service-card-icon-box">
               <i className="ri-palette-line service-card-icon"></i>
             </div>
+            <h3 className="service-card-title">UI / UX Design</h3>
+            <p className="service-card-desc">
+              Creating design systems, journey maps, and high-fidelity
+              wireframes that balance aesthetics with usability.
+            </p>
           </div>
 
           {/* Card 5 */}
           <div className="service-card">
-            <div className="service-card-info">
-              <span className="service-card-num">(05)</span>
-              <h3 className="service-card-title">Deployment &amp; DevOps</h3>
-              <p className="service-card-desc">
-                Configuring CI/CD pipelines, containerized deployments, and
-                robust hosting on cloud platforms.
-              </p>
+            <div className="service-card-icon-box">
+              <i className="ri-rocket-line service-card-icon"></i>
             </div>
-            <div className="service-card-icon-wrapper">
-              <i className="ri-server-line service-card-icon"></i>
-            </div>
+            <h3 className="service-card-title">Deployment &amp; DevOps</h3>
+            <p className="service-card-desc">
+              Configuring CI/CD pipelines, containerized deployments, and robust
+              hosting on cloud platforms.
+            </p>
           </div>
         </div>
       </section>
