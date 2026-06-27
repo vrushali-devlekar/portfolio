@@ -11,7 +11,11 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 export default function ProjectsPage() {
-  const { data: projects, isLoading, error } = useQuery({
+  const {
+    data: projects,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["projects"],
     queryFn: fetchProjects,
   });
@@ -23,7 +27,6 @@ export default function ProjectsPage() {
         <Navbar />
         <main className="flex-grow py-24 px-6">
           <div className="max-w-[1350px] w-full mx-auto space-y-12 mt-8">
-            
             {/* Header */}
             <motion.div
               className="space-y-4"
@@ -36,14 +39,17 @@ export default function ProjectsPage() {
                 Projects
               </h1>
               <p className="text-muted text-sm sm:text-base max-w-xl">
-                A focused showcase of digital systems, platforms, and interactive interfaces built with precision.
+                A focused showcase of digital systems, platforms, and
+                interactive interfaces built with precision.
               </p>
             </motion.div>
 
             {/* Content grid */}
             {error ? (
               <div className="text-center py-12 border border-dashed border-red-500/30 rounded-2xl bg-red-500/5">
-                <p className="text-sm text-red-400">Failed to load projects. Please try refreshing.</p>
+                <p className="text-sm text-red-400">
+                  Failed to load projects. Please try refreshing.
+                </p>
               </div>
             ) : isLoading ? (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -97,7 +103,6 @@ export default function ProjectsPage() {
                 })}
               </div>
             )}
-
           </div>
         </main>
         <Footer />

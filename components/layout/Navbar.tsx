@@ -33,7 +33,7 @@ export default function Navbar() {
           }
         });
       },
-      { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
+      { rootMargin: "-30% 0px -60% 0px", threshold: 0 },
     );
 
     sectionIds.forEach((id) => {
@@ -103,16 +103,34 @@ export default function Navbar() {
 
   const navLinks = [
     { href: "/#home", id: "home", label: "Home", icon: "ri-user-line" },
-    { href: "/#about", id: "about", label: "Summary", icon: "ri-briefcase-line" },
-    { href: "/#work", id: "work", label: "Experience", icon: "ri-file-text-line" },
-    { href: "/#services", id: "services", label: "Skills", icon: "ri-tools-line" },
+    {
+      href: "/#about",
+      id: "about",
+      label: "Summary",
+      icon: "ri-briefcase-line",
+    },
+    {
+      href: "/#work",
+      id: "work",
+      label: "Experience",
+      icon: "ri-file-text-line",
+    },
+    {
+      href: "/#services",
+      id: "services",
+      label: "Skills",
+      icon: "ri-tools-line",
+    },
     { href: "/projects", id: "projects", label: "Projects", icon: "ri-link" },
   ];
 
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
       <nav className="flex items-center justify-center glassmorphism bg-card/60 border border-border/80 px-4 py-2 rounded-full shadow-lg border-glow mx-auto w-fit">
-        <div ref={linksContainerRef} className="flex items-center gap-1 sm:gap-2">
+        <div
+          ref={linksContainerRef}
+          className="flex items-center gap-1 sm:gap-2"
+        >
           {navLinks.map((link) => {
             const isLinkActive =
               link.id === "projects"
@@ -123,7 +141,9 @@ export default function Navbar() {
               <Link
                 key={link.id}
                 href={link.href}
-                onClick={(e) => link.id !== "projects" && handleNavClick(e, `#${link.id}`)}
+                onClick={(e) =>
+                  link.id !== "projects" && handleNavClick(e, `#${link.id}`)
+                }
                 className={`nav-item flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                   isLinkActive
                     ? "bg-primary text-primary-foreground shadow-sm"

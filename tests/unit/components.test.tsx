@@ -14,7 +14,13 @@ describe("Footer Component", () => {
     render(<Footer />);
     const githubLink = screen.getByRole("link", { name: /github/i });
     const linkedinLink = screen.getByRole("link", { name: /linkedin/i });
-    expect(githubLink).toHaveAttribute("href", "https://github.com/vrushali-devlekar");
-    expect(linkedinLink).toHaveAttribute("href", "https://www.linkedin.com/in/vrushali-devlekar/");
+    expect(githubLink).toHaveAttribute(
+      "href",
+      "https://github.com/vrushali-devlekar",
+    );
+    expect(linkedinLink).toHaveAttribute(
+      "href",
+      "https://www.linkedin.com/in/vrushali-devlekar/",
+    );
   });
 });

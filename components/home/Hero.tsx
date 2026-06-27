@@ -11,19 +11,19 @@ export default function Hero() {
       gsap.fromTo(
         ".hero-bg-wrapper",
         { opacity: 0, scale: 1.1 },
-        { opacity: 1, scale: 1, duration: 1.6, ease: "power2.out" }
+        { opacity: 1, scale: 1, duration: 1.6, ease: "power2.out" },
       );
 
       gsap.fromTo(
         ".hero-top-bar",
         { opacity: 0, y: -20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.2 }
+        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.2 },
       );
 
       gsap.fromTo(
         ".hero-subtitle",
         { opacity: 0, x: -30 },
-        { opacity: 1, x: 0, duration: 0.8, ease: "power2.out", delay: 0.3 }
+        { opacity: 1, x: 0, duration: 0.8, ease: "power2.out", delay: 0.3 },
       );
 
       // Letters of the name staggered reveal
@@ -42,7 +42,7 @@ export default function Hero() {
           stagger: 0.04,
           ease: "back.out(1.5)",
           delay: 0.4,
-        }
+        },
       );
 
       // Contact Grid Items staggered float up
@@ -56,7 +56,7 @@ export default function Hero() {
           ease: "power3.out",
           stagger: 0.1,
           delay: 0.8,
-        }
+        },
       );
     });
 
@@ -84,7 +84,9 @@ export default function Hero() {
         <div className="hero-top-bar">
           <div className="status-badge">
             <span className="status-dot"></span>
-            <span className="text-[10px] font-mono tracking-widest text-[#a1a1aa] uppercase">Open to work</span>
+            <span className="text-[10px] font-mono tracking-widest text-[#a1a1aa] uppercase">
+              Open to work
+            </span>
           </div>
           <Link href="/contact" className="download-cv-btn select-none">
             Get in Touch
@@ -113,13 +115,16 @@ export default function Hero() {
 
           {/* Contact Details Grid */}
           <div className="hero-contact-grid">
-            <a href="mailto:vrushali.devlekar@gmail.com" className="hero-contact-item">
+            <a
+              href="mailto:vrushali.devlekar@gmail.com"
+              className="hero-contact-item"
+            >
               <div className="icon-box">
                 <i className="ri-mail-line"></i>
               </div>
               <span className="contact-text">vrushalidevlekar12@gmail.com</span>
             </a>
-            
+
             <a
               href="https://www.linkedin.com/in/vrushali-devlekar/"
               target="_blank"
@@ -129,7 +134,9 @@ export default function Hero() {
               <div className="icon-box">
                 <i className="ri-linkedin-box-fill"></i>
               </div>
-              <span className="contact-text">linkedin.com/in/vrushali-devlekar</span>
+              <span className="contact-text">
+                linkedin.com/in/vrushali-devlekar
+              </span>
             </a>
 
             <a

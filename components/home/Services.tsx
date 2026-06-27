@@ -83,7 +83,7 @@ export default function Services() {
             start: "top 80%",
             toggleActions: "play none none none",
           },
-        }
+        },
       );
 
       // Service Cards staggered slide up
@@ -101,7 +101,7 @@ export default function Services() {
             start: "top 82%",
             toggleActions: "play none none none",
           },
-        }
+        },
       );
     });
 
@@ -109,11 +109,13 @@ export default function Services() {
   }, []);
 
   return (
-    <section className="services services-grid-bg w-full py-24 px-[6%] bg-[#060606] border-t border-border relative overflow-hidden" id="services">
+    <section
+      className="services services-grid-bg w-full py-24 px-[6%] bg-[#060606] border-t border-border relative overflow-hidden"
+      id="services"
+    >
       <div className="corner-dots corner-dots-top-right opacity-60"></div>
       <div className="corner-glow corner-glow-bottom-left"></div>
       <div className="max-w-[1350px] mx-auto space-y-12">
-        
         {/* Header Controls */}
         <div className="services-header flex flex-row items-end justify-between w-full">
           <div>
@@ -160,7 +162,6 @@ export default function Services() {
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );

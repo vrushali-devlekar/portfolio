@@ -33,7 +33,6 @@ export default function ContactPage() {
         <Navbar />
         <main className="flex-grow py-24 px-6 flex items-center justify-center min-h-screen">
           <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-12 gap-12 items-start mt-8">
-            
             {/* Left Contact Side */}
             <motion.div
               className="md:col-span-5 space-y-8"
@@ -48,7 +47,9 @@ export default function ContactPage() {
                 <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-none mt-3 uppercase">
                   Let&apos;s build <br />
                   something <br />
-                  <em className="text-accent not-italic font-extralight text-glow">together</em>
+                  <em className="text-accent not-italic font-extralight text-glow">
+                    together
+                  </em>
                 </h1>
               </div>
 
@@ -58,9 +59,11 @@ export default function ContactPage() {
                   className="flex items-center gap-3 p-4 bg-card/25 border border-border/80 rounded-xl hover:border-accent/40 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                 >
                   <i className="ri-mail-line text-lg text-muted-foreground"></i>
-                  <span className="text-xs sm:text-sm text-muted-foreground">vrushali.devlekar@gmail.com</span>
+                  <span className="text-xs sm:text-sm text-muted-foreground">
+                    vrushali.devlekar@gmail.com
+                  </span>
                 </a>
-                
+
                 <a
                   href="https://www.linkedin.com/in/vrushali-devlekar/"
                   target="_blank"
@@ -68,7 +71,9 @@ export default function ContactPage() {
                   className="flex items-center gap-3 p-4 bg-card/25 border border-border/80 rounded-xl hover:border-accent/40 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                 >
                   <i className="ri-linkedin-box-fill text-lg text-muted-foreground"></i>
-                  <span className="text-xs sm:text-sm text-muted-foreground">linkedin.com/in/vrushali-devlekar</span>
+                  <span className="text-xs sm:text-sm text-muted-foreground">
+                    linkedin.com/in/vrushali-devlekar
+                  </span>
                 </a>
 
                 <a
@@ -78,12 +83,16 @@ export default function ContactPage() {
                   className="flex items-center gap-3 p-4 bg-card/25 border border-border/80 rounded-xl hover:border-accent/40 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                 >
                   <i className="ri-github-fill text-lg text-muted-foreground"></i>
-                  <span className="text-xs sm:text-sm text-muted-foreground">github.com/vrushali-devlekar</span>
+                  <span className="text-xs sm:text-sm text-muted-foreground">
+                    github.com/vrushali-devlekar
+                  </span>
                 </a>
 
                 <div className="flex items-center gap-3 p-4 bg-card/25 border border-border/80 rounded-xl">
                   <i className="ri-map-pin-line text-lg text-muted-foreground"></i>
-                  <span className="text-xs sm:text-sm text-muted-foreground">Mumbai, India</span>
+                  <span className="text-xs sm:text-sm text-muted-foreground">
+                    Mumbai, India
+                  </span>
                 </div>
               </div>
             </motion.div>
@@ -109,7 +118,8 @@ export default function ContactPage() {
                     </div>
                     <h3 className="text-xl font-bold">Message Sent!</h3>
                     <p className="text-muted-foreground text-sm max-w-sm">
-                      Thank you for reaching out! Your message has been sent successfully. I will get back to you as soon as possible.
+                      Thank you for reaching out! Your message has been sent
+                      successfully. I will get back to you as soon as possible.
                     </p>
                     <button
                       onClick={() => mutation.reset()}
@@ -126,7 +136,9 @@ export default function ContactPage() {
                   >
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">Your Name</label>
+                        <label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
+                          Your Name
+                        </label>
                         <input
                           name="name"
                           type="text"
@@ -136,7 +148,9 @@ export default function ContactPage() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">Email Address</label>
+                        <label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
+                          Email Address
+                        </label>
                         <input
                           name="email"
                           type="email"
@@ -148,23 +162,33 @@ export default function ContactPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">Subject</label>
+                      <label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
+                        Subject
+                      </label>
                       <select
                         name="subject"
                         required
                         defaultValue=""
                         className="w-full bg-background border border-border/80 focus:border-accent/70 focus:outline-none rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-accent/40 appearance-none cursor-pointer"
                       >
-                        <option value="" disabled>Select an option…</option>
-                        <option value="Freelance Project">Freelance Project</option>
-                        <option value="Full-time Opportunity">Full-time Opportunity</option>
+                        <option value="" disabled>
+                          Select an option…
+                        </option>
+                        <option value="Freelance Project">
+                          Freelance Project
+                        </option>
+                        <option value="Full-time Opportunity">
+                          Full-time Opportunity
+                        </option>
                         <option value="Collaboration">Collaboration</option>
                         <option value="Just saying hi">Just saying hi</option>
                       </select>
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">Message</label>
+                      <label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
+                        Message
+                      </label>
                       <textarea
                         name="message"
                         placeholder="Tell me about your project, timeline, and budget…"
@@ -177,12 +201,17 @@ export default function ContactPage() {
                     {mutation.isError && (
                       <div className="flex items-center gap-2 text-red-500 bg-red-500/10 border border-red-500/20 px-4 py-3 rounded-xl text-xs font-medium">
                         <i className="ri-error-warning-line"></i>
-                        <span>{mutation.error?.message || "An unexpected error occurred."}</span>
+                        <span>
+                          {mutation.error?.message ||
+                            "An unexpected error occurred."}
+                        </span>
                       </div>
                     )}
 
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
-                      <span className="text-[11px] text-muted-foreground">Your details remain private.</span>
+                      <span className="text-[11px] text-muted-foreground">
+                        Your details remain private.
+                      </span>
                       <button
                         type="submit"
                         disabled={mutation.isPending}
@@ -190,7 +219,8 @@ export default function ContactPage() {
                       >
                         {mutation.isPending ? (
                           <>
-                            Sending... <i className="ri-loader-4-line ri-spin text-base"></i>
+                            Sending...{" "}
+                            <i className="ri-loader-4-line ri-spin text-base"></i>
                           </>
                         ) : (
                           <>

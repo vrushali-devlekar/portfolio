@@ -45,10 +45,13 @@ export const caseStudies: CaseStudy[] = [
       devops: "Docker, GitHub Actions, AWS EC2, Vercel",
     },
     star: {
-      situation: "Legacy deployment management software in the organization had sluggish pipeline feedback (10s polling cycles) and heavy bundles, causing high developer friction and frequent server timeouts under simultaneous builds.",
+      situation:
+        "Legacy deployment management software in the organization had sluggish pipeline feedback (10s polling cycles) and heavy bundles, causing high developer friction and frequent server timeouts under simultaneous builds.",
       task: "Architect a secure, low-latency, single-click deployment dashboard capable of rendering real-time build streaming and cluster health metrics with robust security checks.",
-      action: "Migrated the dashboard client to a Next.js App Router setup with route-based code-splitting, substituted legacy polling with Server-Sent Events (SSE) for log streaming, configured secure HTTP-only cookies for JWT storage, and added Redis-based API rate-limiting to prevent DDoS/brute-force exploits.",
-      result: "Achieved real-time streaming with <100ms lag, reduced backend memory load by 35% through connection pooling, and accelerated dashboard page loads to instant interactions.",
+      action:
+        "Migrated the dashboard client to a Next.js App Router setup with route-based code-splitting, substituted legacy polling with Server-Sent Events (SSE) for log streaming, configured secure HTTP-only cookies for JWT storage, and added Redis-based API rate-limiting to prevent DDoS/brute-force exploits.",
+      result:
+        "Achieved real-time streaming with <100ms lag, reduced backend memory load by 35% through connection pooling, and accelerated dashboard page loads to instant interactions.",
     },
   },
   {
@@ -71,10 +74,13 @@ export const caseStudies: CaseStudy[] = [
       devops: "Docker, Nginx, Render Cloud, GitHub Actions",
     },
     star: {
-      situation: "The tourist booking client had high search latencies (over 2.4s per query) due to unindexed database Lookups, resulting in an 18% bounce rate during marketing campaigns.",
+      situation:
+        "The tourist booking client had high search latencies (over 2.4s per query) due to unindexed database Lookups, resulting in an 18% bounce rate during marketing campaigns.",
       task: "Create a highly interactive tourist lookup engine featuring real-time destination availability, fast search queries, and zero-downtime booking checkouts.",
-      action: "Structured compound indexes on MongoDB search filters, set up a Redis layer cache for pricing matrices, offloaded heavy calculations to background workers, and implemented Next.js Image optimization for seamless media delivery.",
-      result: "Reduced search queries response from 2.4s to under 380ms, dropped booking checkout failures to zero, and increased seasonal conversion rates by 22%.",
+      action:
+        "Structured compound indexes on MongoDB search filters, set up a Redis layer cache for pricing matrices, offloaded heavy calculations to background workers, and implemented Next.js Image optimization for seamless media delivery.",
+      result:
+        "Reduced search queries response from 2.4s to under 380ms, dropped booking checkout failures to zero, and increased seasonal conversion rates by 22%.",
     },
   },
   {
@@ -83,7 +89,12 @@ export const caseStudies: CaseStudy[] = [
     subtitle: "High-Throughput Analytics Dashboard",
     image: "/game.png",
     devStatus: true,
-    tags: ["WebSockets", "Data Analytics", "SaaS Control Panel", "Framer Motion"],
+    tags: [
+      "WebSockets",
+      "Data Analytics",
+      "SaaS Control Panel",
+      "Framer Motion",
+    ],
     metrics: [
       "Synchronized state updates in <150ms via WebSockets",
       "Reduced CPU overhead by 45% using lightweight SVG graphing overlays",
@@ -97,10 +108,13 @@ export const caseStudies: CaseStudy[] = [
       devops: "Docker, Kubernetes, AWS EKS",
     },
     star: {
-      situation: "High-throughput stream indicators required immediate updates (sub-second telemetry). The existing HTTP-polling dashboard choked the database during peak active streams, causing dashboard freezes.",
+      situation:
+        "High-throughput stream indicators required immediate updates (sub-second telemetry). The existing HTTP-polling dashboard choked the database during peak active streams, causing dashboard freezes.",
       task: "Refactor the state synchronization pipeline to ingest, aggregate, and distribute streaming statistics to connected clients with minimal delay.",
-      action: "Replaced REST polling with a persistent WebSocket server utilizing Redis Pub/Sub for state distribution across nodes. Leveraged TanStack Query on the frontend for local state caching and UI optimistic updates.",
-      result: "Realized smooth state synchronization with less than 150ms delay, and scaled telemetry updates to support thousands of concurrent active client sessions.",
+      action:
+        "Replaced REST polling with a persistent WebSocket server utilizing Redis Pub/Sub for state distribution across nodes. Leveraged TanStack Query on the frontend for local state caching and UI optimistic updates.",
+      result:
+        "Realized smooth state synchronization with less than 150ms delay, and scaled telemetry updates to support thousands of concurrent active client sessions.",
     },
   },
 ];

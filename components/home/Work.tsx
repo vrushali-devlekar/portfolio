@@ -12,7 +12,11 @@ if (typeof window !== "undefined") {
 }
 
 export default function Work() {
-  const { data: projects, isLoading, error } = useQuery({
+  const {
+    data: projects,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["projects"],
     queryFn: fetchProjects,
   });
@@ -35,7 +39,7 @@ export default function Work() {
             start: "top 80%",
             toggleActions: "play none none none",
           },
-        }
+        },
       );
 
       // Project Cards staggered slide up
@@ -53,7 +57,7 @@ export default function Work() {
             start: "top 82%",
             toggleActions: "play none none none",
           },
-        }
+        },
       );
     });
 
@@ -61,14 +65,18 @@ export default function Work() {
   }, [projects, isLoading]);
 
   return (
-    <section className="work w-full py-24 px-[6%] bg-[#060606] border-t border-border relative overflow-hidden" id="work">
+    <section
+      className="work w-full py-24 px-[6%] bg-[#060606] border-t border-border relative overflow-hidden"
+      id="work"
+    >
       <div className="corner-glow corner-glow-top-right"></div>
       <div className="corner-dots corner-dots-bottom-left opacity-60"></div>
       <div className="max-w-[1350px] mx-auto space-y-12">
-        
         {/* Header */}
         <div className="work-header">
-          <span className="mini font-mono tracking-widest text-[#f5b907] uppercase">SELECTED WORK</span>
+          <span className="mini font-mono tracking-widest text-[#f5b907] uppercase">
+            SELECTED WORK
+          </span>
           <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-white uppercase mt-2">
             Selected Work
           </h2>
@@ -77,7 +85,9 @@ export default function Work() {
         {/* Content list */}
         {error ? (
           <div className="text-center py-12 border border-dashed border-red-500/30 rounded-2xl bg-red-500/5">
-            <p className="text-sm text-red-400">Failed to load projects. Please try refreshing.</p>
+            <p className="text-sm text-red-400">
+              Failed to load projects. Please try refreshing.
+            </p>
           </div>
         ) : isLoading ? (
           <div className="projects-grid grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -125,7 +135,6 @@ export default function Work() {
             })}
           </div>
         )}
-
       </div>
     </section>
   );

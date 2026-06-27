@@ -26,7 +26,7 @@ export default function About() {
             start: "top 80%",
             toggleActions: "play none none none",
           },
-        }
+        },
       );
 
       // Staggered logo items inside About section
@@ -49,7 +49,7 @@ export default function About() {
             start: "top 85%",
             toggleActions: "play none none none",
           },
-        }
+        },
       );
     });
 
@@ -73,16 +73,19 @@ export default function About() {
       <div className="corner-glow corner-glow-top-left"></div>
       <div className="corner-dots corner-dots-bottom-right opacity-60"></div>
       <div className="about-container">
-        
         {/* Left Side Bio */}
         <div className="about-left">
           <span className="mini">WHO I AM</span>
           <h2>A thoughtful developer bridging code and context.</h2>
           <p>
-            I am a full-stack engineer and designer based in Mumbai, collaborating with companies globally to craft digital systems that feel natural, perform flawlessly, and scale elegantly.
+            I am a full-stack engineer and designer based in Mumbai,
+            collaborating with companies globally to craft digital systems that
+            feel natural, perform flawlessly, and scale elegantly.
           </p>
           <p>
-            I focus on minimal, performance-driven interfaces, robust API infrastructures, and intentional product strategies. My practice is centered on structural integrity and human experience.
+            I focus on minimal, performance-driven interfaces, robust API
+            infrastructures, and intentional product strategies. My practice is
+            centered on structural integrity and human experience.
           </p>
         </div>
 
@@ -99,7 +102,7 @@ export default function About() {
                 <span className="tech-logo-label">{logo.name}</span>
               </div>
             ))}
-            
+
             {/* Custom AWS logo item */}
             <div className="tech-logo-item">
               <Image
@@ -123,7 +126,6 @@ export default function About() {
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );

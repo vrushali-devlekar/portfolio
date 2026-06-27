@@ -47,7 +47,8 @@ export class ErrorBoundary extends Component<Props, State> {
           </div>
           <h2 className="text-xl font-semibold mb-2">Something went wrong</h2>
           <p className="text-muted-foreground text-sm max-w-md mb-6">
-            An unexpected client-side error occurred. The incident has been recorded, and our engineering team has been notified.
+            An unexpected client-side error occurred. The incident has been
+            recorded, and our engineering team has been notified.
           </p>
           {this.state.error && (
             <pre className="p-4 bg-card border border-border text-red-400 font-mono text-xs text-left max-w-lg overflow-auto rounded-lg mb-6">
