@@ -22,6 +22,8 @@ test.describe("Portfolio Navigation Flow", () => {
     await expect(projectsLink).toBeVisible();
 
     // Test keyboard focus ring on links
+
+    
     await page.keyboard.press("Tab");
     // Ensure focus state works (visual confirmation in screenshots if testing visually)
   });
