@@ -23,6 +23,8 @@ test.describe("Portfolio Navigation Flow", () => {
 
     // Test keyboard focus ring on links
 
+
+
     
     await page.keyboard.press("Tab");
     // Ensure focus state works (visual confirmation in screenshots if testing visually)
