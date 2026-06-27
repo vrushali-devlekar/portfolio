@@ -73,13 +73,22 @@ export default function Work() {
       <div className="corner-dots corner-dots-bottom-left opacity-60"></div>
       <div className="max-w-[1350px] mx-auto space-y-12">
         {/* Header */}
-        <div className="work-header">
-          <span className="mini font-mono tracking-widest text-[#f5b907] uppercase">
-            SELECTED WORK
-          </span>
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-white uppercase mt-2">
-            Selected Work
-          </h2>
+        <div className="work-header flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+          <div>
+            <span className="mini font-mono tracking-widest text-[#f5b907] uppercase">
+              SELECTED WORK
+            </span>
+            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-white uppercase mt-2">
+              Selected Work
+            </h2>
+          </div>
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border bg-white/5 text-xs font-mono uppercase tracking-wider text-white hover:bg-accent hover:text-black hover:border-accent transition-all duration-300 select-none group w-fit"
+          >
+            View All Projects
+            <i className="ri-arrow-right-up-line transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-sm"></i>
+          </Link>
         </div>
 
         {/* Content list */}
