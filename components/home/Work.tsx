@@ -100,9 +100,9 @@ export default function Work() {
           </div>
         ) : isLoading ? (
           <div className="projects-grid grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="w-full aspect-[4/3] bg-card animate-pulse rounded-[16px] border border-border"></div>
-            <div className="w-full aspect-[4/3] bg-card animate-pulse rounded-[16px] border border-border"></div>
-            <div className="w-full aspect-[4/3] bg-card animate-pulse rounded-[16px] border border-border"></div>
+            <div className="w-full aspect-[16/10] bg-card animate-pulse rounded-[16px] border border-border"></div>
+            <div className="w-full aspect-[16/10] bg-card animate-pulse rounded-[16px] border border-border"></div>
+            <div className="w-full aspect-[16/10] bg-card animate-pulse rounded-[16px] border border-border"></div>
           </div>
         ) : (
           <div className="projects-grid grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -119,7 +119,7 @@ export default function Work() {
                   aria-disabled={isDev}
                 >
                   {/* Card Image: Dribbble style */}
-                  <div className="relative w-full aspect-[4/3] overflow-hidden rounded-[16px] bg-card border border-border/80">
+                  <div className="relative w-full aspect-[16/10] overflow-hidden rounded-[16px] bg-card border border-border/80">
                     <img
                       src={project.image}
                       alt={project.title}
