@@ -280,7 +280,7 @@ export default function Services() {
                 {/* Outcomes & Footer Action */}
                 <div className="mt-8">
                   {/* Outcomes Grid */}
-                  <div className="grid grid-cols-2 gap-3 border-t border-slate-900 pt-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 border-t border-slate-900 pt-5">
                     {node.metrics.map((metric, mIdx) => (
                       <div
                         key={mIdx}

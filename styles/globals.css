@@ -889,3 +889,170 @@
   z-index: 1;
   pointer-events: none;
 }
+
+/* ─── MOBILE Restructuring & Navigation Styles ─────────────────── */
+
+/* Navigation Full-screen Overlay */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(6, 6, 6, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease-in-out, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.nav-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.nav-overlay-link {
+  font-family: var(--font-bebas), "Bebas Neue", sans-serif;
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted-foreground);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+  transform: translateY(20px);
+  opacity: 0;
+  will-change: transform, opacity;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.nav-overlay.open .nav-overlay-link {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.nav-overlay-link:nth-child(1) { transition-delay: 0.05s; }
+.nav-overlay-link:nth-child(2) { transition-delay: 0.1s; }
+.nav-overlay-link:nth-child(3) { transition-delay: 0.15s; }
+.nav-overlay-link:nth-child(4) { transition-delay: 0.2s; }
+.nav-overlay-link:nth-child(5) { transition-delay: 0.25s; }
+
+.nav-overlay-link:hover {
+  transform: scale(1.06);
+  color: var(--accent);
+  text-shadow: 0 0 30px rgba(245, 185, 7, 0.35);
+}
+
+.nav-overlay-link.active {
+  color: var(--accent);
+  text-shadow: 0 0 30px rgba(245, 185, 7, 0.35);
+}
+
+/* Responsiveness adjustments for Hero, Grids, and Spacings */
+@media (max-width: 768px) {
+  /* Dynamic hero background silhoutte */
+  .hero-bg-wrapper {
+    width: 100% !important;
+    opacity: 0.7 !important;
+  }
+  
+  .hero-bg-overlay {
+    background: 
+      radial-gradient(
+        circle at 75% 35%,
+        rgba(6, 6, 6, 0.1) 0%,
+        rgba(6, 6, 6, 0.65) 50%,
+        var(--background) 95%
+      ) !important;
+  }
+
+  /* Fix top status bar buttons collision by keeping them side-by-side but shrinking sizes */
+  .hero-top-bar {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+  }
+
+  .status-badge {
+    padding: 0.35rem 0.75rem !important;
+    gap: 0.4rem !important;
+  }
+
+  .status-badge span {
+    font-size: 8px !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  .status-dot {
+    width: 5px !important;
+    height: 5px !important;
+  }
+
+  .download-cv-btn {
+    font-size: 0.68rem !important;
+    padding: 0.45rem 1rem !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  /* Consistent mobile section paddings */
+  .hero {
+    padding: 3rem 1.5rem 4rem !important;
+  }
+  
+  .about {
+    padding: 3rem 1.5rem !important;
+  }
+  
+  .work {
+    padding: 3rem 1.5rem !important;
+  }
+  
+  .services-section {
+    padding: 3rem 1.5rem !important;
+  }
+
+  /* Fix capabilities scroll area paddings */
+  .services-nodes-grid {
+    padding-right: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Stack hero contact items horizontally/vertically cleanly */
+  .hero-contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.8rem !important;
+  }
+
+  .hero-contact-item .contact-text {
+    font-size: 0.82rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Hero typography fine-tuning */
+  .hero-subtitle {
+    margin-bottom: 0.5rem !important;
+  }
+
+  .hero-title {
+    font-size: clamp(2.4rem, 11vw, 4.5rem) !important;
+    margin-bottom: 1.5rem !important;
+    line-height: 0.95 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Tech logo grid stacking */
+  .tech-logo-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.7rem !important;
+  }
+}

@@ -17,6 +17,11 @@ test.describe("Portfolio Navigation Flow", () => {
   }) => {
     await page.goto("/");
 
+    // Open the navigation menu overlay
+    const toggleButton = page.locator('button[aria-label="Toggle navigation menu"]');
+    await expect(toggleButton).toBeVisible();
+    await toggleButton.click();
+
     // Find projects link inside Navbar
     const projectsLink = page.locator('a[href="/projects"]').first();
     await expect(projectsLink).toBeVisible();
