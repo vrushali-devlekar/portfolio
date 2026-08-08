@@ -1,17 +1,27 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLenis } from "lenis/react";
-import gsap from "gsap";
+import { Menu, X, ArrowUpRight, MessageSquare } from "lucide-react";
 
 export default function Navbar() {
   const pathname = usePathname();
   const lenis = useLenis();
-  const linksContainerRef = useRef<HTMLDivElement>(null);
   const [activeSection, setActiveSection] = useState("home");
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  const navLinks = [
+    { id: "home", label: "Home" },
+    { id: "featured", label: "Showcase" },
+    { id: "case-study", label: "Architecture" },
+    { id: "projects", label: "Projects" },
+    { id: "skills", label: "Skills" },
+    { id: "experience", label: "Timeline" },
+    { id: "widgets", label: "Status" },
+  ];
 
   const handleNavClick = (e: React.MouseEvent, targetId: string) => {
     setIsOpen(false);
@@ -19,14 +29,29 @@ export default function Navbar() {
       e.preventDefault();
       if (lenis) {
         lenis.scrollTo(targetId, { offset: -80, duration: 1.2 });
+      } else {
+        const el = document.querySelector(targetId);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
       }
     }
   };
 
   useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
     if (pathname !== "/") return;
 
-    const sectionIds = ["home", "about", "work", "services"];
+    const sectionIds = [...navLinks.map((l) => l.id), "contact"];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -35,7 +60,7 @@ export default function Navbar() {
           }
         });
       },
-      { rootMargin: "-30% 0px -60% 0px", threshold: 0 },
+      { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
     );
 
     sectionIds.forEach((id) => {
@@ -44,65 +69,12 @@ export default function Navbar() {
     });
 
     return () => {
+      window.removeEventListener("scroll", handleScroll);
       observer.disconnect();
     };
   }, [pathname]);
 
-  // Magnetic Dock Effect for Desktop
-  useEffect(() => {
-    const container = linksContainerRef.current;
-    if (!container) return;
-
-    const items = container.querySelectorAll(".nav-item");
-
-    const handleMouseMoveContainer = (e: MouseEvent) => {
-      if (window.matchMedia("(max-width: 768px)").matches) return;
-
-      const rect = container.getBoundingClientRect();
-      const mouseX = e.clientX - rect.left;
-
-      items.forEach((item) => {
-        const itemRect = item.getBoundingClientRect();
-        const itemCenterX = (itemRect.left + itemRect.right) / 2 - rect.left;
-        const dist = Math.abs(mouseX - itemCenterX);
-        const maxDist = 120;
-
-        let scale = 1;
-        if (dist < maxDist) {
-          const factor = 1 - dist / maxDist;
-          scale = 1 + 0.25 * (factor * factor * factor);
-        }
-
-        gsap.to(item, {
-          scale: scale,
-          y: scale > 1 ? -(scale - 1) * 16 : 0,
-          duration: 0.2,
-          ease: "power1.out",
-        });
-      });
-    };
-
-    const handleMouseLeaveDock = () => {
-      items.forEach((item) => {
-        gsap.to(item, {
-          scale: 1,
-          y: 0,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-      });
-    };
-
-    container.addEventListener("mousemove", handleMouseMoveContainer);
-    container.addEventListener("mouseleave", handleMouseLeaveDock);
-
-    return () => {
-      container.removeEventListener("mousemove", handleMouseMoveContainer);
-      container.removeEventListener("mouseleave", handleMouseLeaveDock);
-    };
-  }, [pathname]);
-
-  // Lock body scroll when overlay is open
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -114,129 +86,118 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
-  const isHome = pathname === "/";
-
-  const navLinks = [
-    { href: "/#home", id: "home", label: "Home", icon: "ri-user-line" },
-    {
-      href: "/#about",
-      id: "about",
-      label: "Summary",
-      icon: "ri-briefcase-line",
-    },
-    {
-      href: "/#work",
-      id: "work",
-      label: "Experience",
-      icon: "ri-file-text-line",
-    },
-    {
-      href: "/#services",
-      id: "services",
-      label: "Skills",
-      icon: "ri-tools-line",
-    },
-    { href: "/projects", id: "projects", label: "Projects", icon: "ri-link" },
-  ];
-
   return (
     <>
-      {/* ─── DESKTOP DOCK NAVBAR ─── */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden md:block">
-        <nav className="flex items-center justify-center glassmorphism bg-card/60 border border-border/80 px-4 py-2 rounded-full shadow-lg border-glow mx-auto w-fit">
-          <div
-            ref={linksContainerRef}
-            className="flex items-center gap-1 sm:gap-2"
-          >
-            {navLinks.map((link) => {
-              const isLinkActive =
-                link.id === "projects"
-                  ? pathname === "/projects"
-                  : isHome && activeSection === link.id;
-
-              return (
-                <Link
-                  key={link.id}
-                  href={link.href}
-                  onClick={(e) =>
-                    link.id !== "projects" && handleNavClick(e, `#${link.id}`)
-                  }
-                  className={`nav-item flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-                    isLinkActive
-                      ? "bg-primary text-primary-foreground shadow-sm"
-                      : "text-muted-foreground hover:text-foreground hover:bg-border/30"
-                  }`}
-                  aria-label={link.label}
-                >
-                  <i className={`${link.icon} text-sm`}></i>
-                  <span className="hidden sm:inline">{link.label}</span>
-                </Link>
-              );
-            })}
-          </div>
-        </nav>
-      </div>
-
-      {/* ─── MOBILE HAMBURGER BUTTON ─── */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 flex md:hidden items-center justify-center w-14 h-14 rounded-full glassmorphism border border-border/80 text-white shadow-lg border-glow transition-all duration-300 hover:scale-105 active:scale-95 group focus:outline-none"
-        aria-label="Toggle navigation menu"
+      <header
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-[#F4EEDD]/90 backdrop-blur-md border-b border-[#1C1C1C]/10 py-3 shadow-sm"
+            : "bg-transparent py-5"
+        }`}
       >
-        <div className="relative w-6 h-6 flex flex-col justify-center items-center">
-          {/* Morphing hamburger lines */}
-          <span
-            className={`block absolute h-0.5 w-6 bg-white transition-all duration-300 ease-in-out ${
-              isOpen ? "rotate-45 translate-y-0" : "-translate-y-2"
-            }`}
-          />
-          <span
-            className={`block absolute h-0.5 w-6 bg-white transition-all duration-300 ease-in-out ${
-              isOpen ? "opacity-0" : "opacity-100"
-            }`}
-          />
-          <span
-            className={`block absolute h-0.5 w-6 bg-white transition-all duration-300 ease-in-out ${
-              isOpen ? "-rotate-45 translate-y-0" : "translate-y-2"
-            }`}
-          />
-        </div>
-      </button>
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+          {/* Logo */}
+          <Link
+            href="/#home"
+            onClick={(e) => handleNavClick(e, "#home")}
+            className="flex items-center gap-2.5 group focus:outline-none"
+          >
+            <span className="w-8 h-8 rounded-lg bg-[#E05638] text-white flex items-center justify-center font-mono font-bold text-sm group-hover:scale-105 transition-transform shadow-sm">
+              VD
+            </span>
+            <span className="font-serif text-base font-bold tracking-tight text-[#1C1C1C]">
+              Vrushali Devlekar
+            </span>
+          </Link>
 
-      {/* ─── MOBILE FULL-SCREEN OVERLAY MENU ─── */}
-      <div className={`nav-overlay md:hidden ${isOpen ? "open" : ""}`}>
-        {/* Decorative dynamic glows */}
-        <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-accent/5 rounded-full filter blur-[100px] pointer-events-none"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent/5 rounded-full filter blur-[100px] pointer-events-none"></div>
-
-        <nav className="flex flex-col items-center gap-6 z-10">
-          {navLinks.map((link) => {
-            const isLinkActive =
-              link.id === "projects"
-                ? pathname === "/projects"
-                : isHome && activeSection === link.id;
-
-            return (
-              <Link
+          {/* Desktop Nav Links */}
+          <nav className="hidden md:flex items-center gap-1 bg-[#FFFDF7] border border-[#1C1C1C]/15 px-3 py-1.5 rounded-full shadow-sm">
+            {navLinks.map((link) => (
+              <a
                 key={link.id}
-                href={link.href}
-                onClick={(e) => {
-                  setIsOpen(false);
-                  if (link.id !== "projects") {
-                    handleNavClick(e, `#${link.id}`);
-                  }
-                }}
-                className={`nav-overlay-link ${isLinkActive ? "active" : ""}`}
+                href={`/#${link.id}`}
+                onClick={(e) => handleNavClick(e, `#${link.id}`)}
+                className={`px-3.5 py-1 rounded-full text-xs font-mono tracking-wide transition-all ${
+                  activeSection === link.id
+                    ? "bg-[#E05638] text-white font-semibold"
+                    : "text-[#666666] hover:text-[#1C1C1C]"
+                }`}
               >
                 {link.label}
-              </Link>
-            );
-          })}
-        </nav>
+              </a>
+            ))}
+          </nav>
 
-        {/* Footer citation inside overlay */}
-        <div className="absolute bottom-8 text-center text-[10px] font-mono tracking-widest text-zinc-600 uppercase">
-          Vrushali Devlekar &copy; 2026
+          {/* Action Button: "Let's Talk" */}
+          <div className="hidden md:block">
+            <a
+              href="#contact"
+              onClick={(e) => handleNavClick(e, "#contact")}
+              className="flex items-center gap-2 bg-[#E05638] hover:bg-[#c94529] text-white px-5 py-2.5 rounded-full text-xs font-mono font-semibold tracking-wider transition-all duration-300 shadow-sm group"
+            >
+              <MessageSquare className="w-3.5 h-3.5" />
+              Let&apos;s Talk
+              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="flex md:hidden items-center justify-center p-2 rounded-lg bg-[#FFFDF7] border border-[#1C1C1C]/15 text-[#1C1C1C] focus:outline-none shadow-sm"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile Fullscreen Menu */}
+      <div
+        className={`fixed inset-0 z-40 bg-[#F4EEDD] flex flex-col justify-between p-8 md:hidden transition-all duration-500 ease-in-out ${
+          isOpen
+            ? "opacity-100 pointer-events-auto translate-y-0"
+            : "opacity-0 pointer-events-none -translate-y-4"
+        }`}
+      >
+        <div className="flex flex-col gap-6 pt-24 z-10">
+          <span className="text-[11px] font-mono text-[#E05638] tracking-widest uppercase font-bold">
+            Navigation Menu
+          </span>
+          <nav className="flex flex-col gap-4">
+            {navLinks.map((link) => (
+              <a
+                key={link.id}
+                href={`/#${link.id}`}
+                onClick={(e) => handleNavClick(e, `#${link.id}`)}
+                className={`text-3xl font-serif font-bold tracking-tight transition-colors ${
+                  activeSection === link.id
+                    ? "text-[#E05638]"
+                    : "text-[#1C1C1C]/60 hover:text-[#1C1C1C]"
+                }`}
+              >
+                {link.label}
+              </a>
+            ))}
+            <a
+              href="#contact"
+              onClick={(e) => handleNavClick(e, "#contact")}
+              className={`text-3xl font-serif font-bold tracking-tight transition-colors ${
+                activeSection === "contact"
+                  ? "text-[#E05638]"
+                  : "text-[#1C1C1C]/60 hover:text-[#1C1C1C]"
+              }`}
+            >
+              Contact
+            </a>
+          </nav>
+        </div>
+
+        <div className="flex flex-col gap-4 z-10 border-t border-[#1C1C1C]/10 pt-6">
+          <div className="flex justify-between items-center text-xs font-mono text-[#666666]">
+            <span>Vrushali Devlekar</span>
+            <span>&copy; {new Date().getFullYear()}</span>
+          </div>
         </div>
       </div>
     </>
