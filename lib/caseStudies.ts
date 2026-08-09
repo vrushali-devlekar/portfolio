@@ -29,7 +29,7 @@ export const caseStudies: CaseStudy[] = [
     slug: "velora-deploy",
     title: "Velora Deploy Dashboard",
     subtitle: "Enterprise DevOps Automation & UX Platform",
-    image: "/velora.png",
+    image: "/velora.webp",
     liveUrl: "https://veloraa-deploy.vercel.app/",
     tags: ["One-Click Deploy", "Real-Time Tracking", "DevOps UI", "Security"],
     metrics: [
@@ -58,7 +58,7 @@ export const caseStudies: CaseStudy[] = [
     slug: "tours-booking",
     title: "Pack & Explore",
     subtitle: "High-Concurrency Tourism Booking Platform",
-    image: "/tours.png",
+    image: "/tours.webp",
     liveUrl: "https://pack-explore.onrender.com/",
     tags: ["Tourism Search", "Real-Time Booking", "Redis Cache", "Indexed DB"],
     metrics: [
@@ -87,7 +87,7 @@ export const caseStudies: CaseStudy[] = [
     slug: "gaming-stream",
     title: "Gaming Stream SaaS",
     subtitle: "High-Throughput Analytics Dashboard",
-    image: "/game.png",
+    image: "/game.webp",
     devStatus: true,
     tags: [
       "WebSockets",

@@ -73,7 +73,7 @@ export default function Hero() {
       {/* Background silhouette wrapper */}
       <div className="hero-bg-wrapper">
         <img
-          src="/port-1.png"
+          src="/port-1.webp"
           alt="Vrushali Devlekar Silhouette"
           className="hero-bg-img"
         />

@@ -32,29 +32,104 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Vrushali Devlekar | Portfolio",
+  metadataBase: new URL("https://vrushali-devlekar.vercel.app"),
+  title: {
+    default: "Vrushali Devlekar | Full Stack & Three.js Developer",
+    template: "%s | Vrushali Devlekar",
+  },
   description:
-    "Enterprise-grade Full Stack Engineer & UI Designer based in Mumbai, India. Specialized in high-performance web systems and developer tooling UI.",
+    "Enterprise-grade Full Stack Engineer & Three.js Developer based in Mumbai, India. Specialized in high-performance web systems, interactive WebGL, and modern UI engineering.",
   keywords: [
+    "Vrushali Devlekar",
     "Full Stack Developer",
+    "Three.js Developer",
     "Next.js",
     "React",
     "TypeScript",
-    "DevOps",
+    "Mumbai Developer",
+    "India Software Engineer",
     "Web Developer Portfolio",
   ],
-  authors: [{ name: "Vrushali Devlekar" }],
+  authors: [
+    { name: "Vrushali Devlekar", url: "https://github.com/vrushali-devlekar" },
+  ],
+  creator: "Vrushali Devlekar",
   icons: {
-    icon: "/my1.png",
-    shortcut: "/my1.png",
-    apple: "/my1.png",
+    icon: "/my1.webp",
+    shortcut: "/my1.webp",
+    apple: "/my1.webp",
   },
   openGraph: {
-    title: "Vrushali Devlekar | Portfolio",
+    title: "Vrushali Devlekar | Full Stack & Three.js Developer",
     description:
-      "Enterprise-grade Full Stack Engineer & UI Designer based in Mumbai, India.",
+      "Full Stack Engineer & Three.js Developer based in Mumbai, India. Specialized in high-performance web systems and interactive WebGL experiences.",
+    url: "https://vrushali-devlekar.vercel.app",
+    siteName: "Vrushali Devlekar Portfolio",
+    locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Vrushali Devlekar - Full Stack & Three.js Developer | Mumbai, India",
+      },
+    ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Vrushali Devlekar | Full Stack & Three.js Developer",
+    description:
+      "Full Stack Engineer & Three.js Developer based in Mumbai, India. Specialized in high-performance web systems and interactive WebGL experiences.",
+    creator: "@vrushali_i",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Vrushali Devlekar",
+  url: "https://github.com/vrushali-devlekar",
+  image: "https://vrushali-devlekar.vercel.app/my1.webp",
+  jobTitle: "Full Stack Developer specializing in React, Node.js, MongoDB, and modern web applications",
+  worksFor: {
+    "@type": "Organization",
+    name: "Full Stack Engineer",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Mumbai",
+    addressRegion: "Maharashtra",
+    addressCountry: "India",
+  },
+  sameAs: [
+    "https://www.linkedin.com/in/vrushali-devlekar/",
+    "https://github.com/vrushali-devlekar",
+    "https://www.instagram.com/rushali.io/",
+    "https://x.com/vrushali_i",
+  ],
+  knowsAbout: [
+    "Full Stack Web Development",
+    "Three.js",
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Node.js",
+    "DevOps",
+    "UI/UX Design",
+  ],
 };
 
 export default function RootLayout({
@@ -68,6 +143,12 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${dmSans.variable} ${bebasNeue.variable} ${dmMono.variable} ${playfairDisplay.variable}`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="antialiased min-h-screen flex flex-col">
         <Providers>{children}</Providers>
       </body>
