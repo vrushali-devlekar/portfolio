@@ -32,6 +32,15 @@ export default function Footer() {
         >
           <i className="ri-twitter-x-line text-lg"></i>
         </a>
+        <a
+          href="https://www.instagram.com/rushali.io/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-foreground transition-colors p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
+          aria-label="Instagram Profile"
+        >
+          <i className="ri-instagram-line text-lg"></i>
+        </a>
       </div>
     </footer>
   );

@@ -45,9 +45,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Vrushali Devlekar" }],
   icons: {
-    icon: "/tap.png",
-    shortcut: "/tap.png",
-    apple: "/tap.png",
+    icon: "/my1.png",
+    shortcut: "/my1.png",
+    apple: "/my1.png",
   },
   openGraph: {
     title: "Vrushali Devlekar | Portfolio",
