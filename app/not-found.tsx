@@ -26,7 +26,7 @@ export default function NotFound() {
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-md">
               <span className="h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
               <span className="font-mono text-xs text-amber-400 uppercase tracking-widest">
-                // ERROR 404: ROUTE_NOT_FOUND
+                {"// ERROR 404: ROUTE_NOT_FOUND"}
               </span>
             </div>
 
