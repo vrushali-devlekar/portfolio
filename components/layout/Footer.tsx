@@ -33,7 +33,7 @@ export default function Footer() {
           <i className="ri-twitter-x-line text-lg"></i>
         </a>
         <a
-          href="https://www.instagram.com/rushali.io/"
+          href="https://www.instagram.com/rushu.jsx/"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-foreground transition-colors p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"

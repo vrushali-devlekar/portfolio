@@ -97,7 +97,7 @@ export default function ContactPage() {
 
                 {/* Instagram */}
                 <a
-                  href="https://www.instagram.com/rushali.io/"
+                  href="https://www.instagram.com/rushu.jsx/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3.5 p-3.5 bg-card/20 border border-white/10 rounded-xl hover:border-accent/50 hover:bg-white/[0.04] transition-all group focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
@@ -110,7 +110,7 @@ export default function ContactPage() {
                       Instagram
                     </span>
                     <span className="text-xs sm:text-sm text-zinc-200 group-hover:text-white font-mono truncate">
-                      instagram.com/rushali.io
+                      instagram.com/rushu.jsx
                     </span>
                   </div>
                 </a>
