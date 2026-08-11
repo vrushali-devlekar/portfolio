@@ -101,9 +101,9 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Vrushali Devlekar",
-  url: "https://github.com/vrushali-devlekar",
+  url: "https://vrushali-devlekar.vercel.app/",
   image: "https://vrushali-devlekar.vercel.app/my1.webp",
-  jobTitle: "Full Stack Developer specializing in React, Node.js, MongoDB, and modern web applications",
+  jobTitle: "Full Stack Developer",
   worksFor: {
     "@type": "Organization",
     name: "Full Stack Engineer",
