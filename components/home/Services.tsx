@@ -1,178 +1,334 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useState, useRef, useEffect, MouseEvent } from "react";
+import { motion, Variants } from "framer-motion";
+import * as THREE from "three";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
+// 3D Wireframe Canvas Component for Card 02 (Interactive 3D & WebGL)
+function WireframeCanvas({ isHovered }: { isHovered: boolean }) {
+  const mountRef = useRef<HTMLDivElement>(null);
+  const isHoveredRef = useRef(isHovered);
+  isHoveredRef.current = isHovered;
+
+  useEffect(() => {
+    if (!mountRef.current) return;
+    const container = mountRef.current;
+    const width = container.clientWidth || 300;
+    const height = container.clientHeight || 140;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+    camera.position.z = 3.5;
+
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    const geometry = new THREE.TorusKnotGeometry(0.85, 0.28, 64, 12);
+    const material = new THREE.MeshBasicMaterial({
+      wireframe: true,
+      color: 0xE05638,
+      transparent: true,
+      opacity: 0.85,
+    });
+
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+
+    let animationFrameId: number;
+    const animate = () => {
+      animationFrameId = requestAnimationFrame(animate);
+      const speed = isHoveredRef.current ? 0.025 : 0.008;
+      mesh.rotation.x += speed;
+      mesh.rotation.y += speed * 1.2;
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    const handleResize = () => {
+      if (!container) return;
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("resize", handleResize);
+      if (container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement);
+      }
+      geometry.dispose();
+      material.dispose();
+      renderer.dispose();
+    };
+  }, []);
+
+  return <div ref={mountRef} className="w-full h-36 flex items-center justify-center overflow-hidden" />;
 }
 
-interface CapabilityCard {
+interface ServiceCardData {
+  id: string;
   serial: string;
-  icon: string;
   title: string;
   description: string;
-  stack: string[];
+  techBadges: string[];
+  widgetType: "terminal" | "three" | "health";
+}
+
+const SERVICES: ServiceCardData[] = [
+  {
+    id: "fullstack",
+    serial: "01",
+    title: "Full-Stack Web Apps",
+    description:
+      "Type-safe end-to-end architectures, lightning-fast rendering pipelines, and production-grade maintainability.",
+    techBadges: ["Next.js", "TypeScript", "Node.js", "PostgreSQL"],
+    widgetType: "terminal",
+  },
+  {
+    id: "threejs",
+    serial: "02",
+    title: "Interactive 3D & WebGL",
+    description:
+      "Sub-60FPS web experiences, custom GLSL shaders, and immersive 3D canvas rendering for unforgettable digital products.",
+    techBadges: ["Three.js", "React Three Fiber", "GLSL", "WebGL"],
+    widgetType: "three",
+  },
+  {
+    id: "api",
+    serial: "03",
+    title: "High-Throughput APIs",
+    description:
+      "Resilient microservices, low-latency Redis caching layers, and zero-downtime containerized cloud infrastructure.",
+    techBadges: ["Node.js", "Express", "REST APIs", "Redis", "Docker"],
+    widgetType: "health",
+  },
+];
+
+function BentoServiceCard({ card, index }: { card: ServiceCardData; index: number }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setMousePos({ x, y });
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -8;
+    const rotateY = ((x - centerX) / centerX) * 8;
+    setTilt({ x: rotateX, y: rotateY });
+  };
+
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setTilt({ x: 0, y: 0 });
+  };
+
+  const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 30, scale: 0.96 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 120,
+        damping: 18,
+        delay: index * 0.1,
+      },
+    },
+  };
+
+  return (
+    <motion.div variants={cardVariants} className="h-full">
+      <div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          transform: isHovered
+            ? `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`
+            : "perspective(1000px) rotateX(0deg) rotateY(0deg)",
+          transition: isHovered ? "transform 0.1s ease-out" : "transform 0.5s ease-out",
+        }}
+        className="relative h-full rounded-3xl bg-[#101116] border border-[#1E202B] p-7 sm:p-8 overflow-hidden flex flex-col justify-between group transition-colors duration-300 hover:border-[#E05638]/40 shadow-xl backdrop-blur-md"
+      >
+        {/* Radial cursor glow overlay */}
+        <div
+          className="pointer-events-none absolute -inset-px transition-opacity duration-300 rounded-3xl z-0"
+          style={{
+            opacity: isHovered ? 1 : 0,
+            background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, rgba(224, 86, 56, 0.25), transparent 40%)`,
+          }}
+        />
+
+        <div className="relative z-10 flex flex-col h-full justify-between space-y-6">
+          <div>
+            {/* Interactive Header Widget */}
+            <div className="mb-6 rounded-2xl bg-[#0D0E12] border border-[#1E202B] p-4 overflow-hidden">
+              {card.widgetType === "terminal" && (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between border-b border-[#1E202B] pb-2.5">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
+                    </div>
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono text-[10px] font-semibold">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                      PROD: READY
+                    </span>
+                  </div>
+                  <div className="font-mono text-xs space-y-1 text-neutral-300">
+                    <p className="text-neutral-500">$ pnpm build --prod</p>
+                    <p className="text-emerald-400">✓ Compiled successfully in 840ms</p>
+                    <p className="text-neutral-400 text-[11px]">$ ready on port 3000</p>
+                  </div>
+                </div>
+              )}
+
+              {card.widgetType === "three" && (
+                <div className="relative flex items-center justify-center">
+                  <WireframeCanvas isHovered={isHovered} />
+                  <span className="absolute bottom-1 right-2 text-[10px] font-mono text-[#E05638] uppercase tracking-wider bg-[#0D0E12]/80 px-2 py-0.5 rounded border border-[#E05638]/30">
+                    60FPS GLSL
+                  </span>
+                </div>
+              )}
+
+              {card.widgetType === "health" && (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between border-b border-[#1E202B] pb-2">
+                    <span className="font-mono text-[11px] text-neutral-400 uppercase tracking-wider">SYSTEM MONITOR</span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 pt-1">
+                    <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.05]">
+                      <span className="block text-[10px] font-mono text-neutral-400">Latency</span>
+                      <span className="text-sm font-mono font-bold text-emerald-400">24ms</span>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.05]">
+                      <span className="block text-[10px] font-mono text-neutral-400">Uptime</span>
+                      <span className="text-sm font-mono font-bold text-amber-400">99.99%</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Serial & Title */}
+            <div className="flex items-center gap-3 mb-3">
+              <span className="font-mono text-xs font-bold text-[#E05638] bg-[#E05638]/10 border border-[#E05638]/20 px-2.5 py-1 rounded-lg">
+                {card.serial}
+              </span>
+              <h3 className="text-xl font-bold text-white group-hover:text-[#E05638] transition-colors duration-300">
+                {card.title}
+              </h3>
+            </div>
+
+            {/* Description */}
+            <p className="text-sm text-neutral-400 leading-relaxed font-sans">
+              {card.description}
+            </p>
+          </div>
+
+          {/* Tech Stack Badges */}
+          <div className="pt-6 border-t border-[#1E202B]">
+            <span className="text-[10px] font-mono uppercase text-neutral-400 tracking-wider block mb-3 font-semibold">
+              CORE TECH STACK
+            </span>
+            <div className="flex flex-wrap gap-2">
+              {card.techBadges.map((tech) => (
+                <span
+                  key={tech}
+                  className="text-xs font-mono text-neutral-300 bg-white/[0.04] border border-white/[0.08] px-2.5 py-1 rounded-lg font-medium hover:border-[#E05638]/40 hover:text-[#E05638] transition-colors duration-300"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
 }
 
 export default function Services() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
-
-  const capabilities: CapabilityCard[] = [
-    {
-      serial: "01",
-      icon: "ri-layout-3-line",
-      title: "Full-Stack Web Development",
-      description:
-        "Building scalable, end-to-end web applications with type-safe architectures and production-grade performance.",
-      stack: ["Next.js", "TypeScript", "Node.js", "PostgreSQL"],
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      },
     },
-    {
-      serial: "02",
-      icon: "ri-shapes-line",
-      title: "Interactive 3D & WebGL",
-      description:
-        "Creating immersive WebGL experiences, 3D product visualizers, and interactive hero scenes.",
-      stack: ["Three.js", "React Three Fiber", "GLSL", "WebGL"],
-    },
-    {
-      serial: "03",
-      icon: "ri-server-line",
-      title: "High-Throughput APIs & Systems",
-      description:
-        "Designing resilient REST & GraphQL APIs, optimized database queries, and secure cloud integrations.",
-      stack: ["Node.js", "Express", "REST APIs", "Redis", "Docker"],
-    },
-  ];
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Reveal header elements
-      gsap.fromTo(
-        ".capabilities-header",
-        { opacity: 0, y: 25 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-
-      // Staggered grid cards entrance
-      gsap.fromTo(
-        ".capability-card",
-        { opacity: 0, y: 35 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          stagger: 0.15,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: cardsRef.current,
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
+  };
 
   return (
-    <section
-      ref={containerRef}
-      className="services w-full py-24 px-[6%] bg-[#060606] border-t border-border relative overflow-hidden"
-      id="services"
-    >
-      {/* Decorative corner glows & background accents */}
-      <div className="corner-glow corner-glow-top-right"></div>
-      <div className="corner-dots corner-dots-bottom-left opacity-60"></div>
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#f5b907]/5 rounded-full blur-[140px] pointer-events-none" />
+    <section className="relative bg-[#0D0E12] py-24 px-4 sm:px-6 lg:px-12 overflow-hidden border-t border-[#1E202B]" id="services">
+      {/* Background ambient lighting */}
+      <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-[#E05638]/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-[1350px] mx-auto relative z-10">
-        {/* Header Block */}
-        <div className="capabilities-header flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-border">
+      <div className="max-w-7xl mx-auto space-y-12 relative z-10">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#1E202B]"
+        >
           <div className="space-y-3">
-            <div className="status-badge">
-              <span className="status-dot"></span>
-              <span className="text-[10px] font-mono tracking-widest text-[#a1a1aa] uppercase">
-                CAPABILITIES
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#E05638] animate-pulse" />
+              <span className="font-mono text-xs sm:text-sm font-semibold tracking-wider text-[#E05638] uppercase">
+                03 CORE STACK & EXPERTISE
               </span>
             </div>
 
-            <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight uppercase leading-none font-sans">
-              WHAT I <span className="text-[#f5b907]">ENGINEER</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+              WHAT I{" "}
+              <span className="bg-gradient-to-r from-[#E05638] via-[#E05638] to-amber-500 bg-clip-text text-transparent">
+                ENGINEER
+              </span>
             </h2>
           </div>
 
-          <p className="text-xs sm:text-sm text-zinc-400 font-mono max-w-md leading-relaxed">
-            Modular, high-performance systems and interactive 3D digital experiences engineered for scale.
+          <p className="text-xs sm:text-sm text-neutral-400 font-mono max-w-md leading-relaxed">
+            No fluff. Just resilient code, buttery animations, and scalable architecture.
           </p>
-        </div>
+        </motion.div>
 
         {/* 3-Column Bento Grid */}
-        <div
-          ref={cardsRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mt-12 w-full"
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={containerVariants}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch"
         >
-          {capabilities.map((card, index) => (
-            <div
-              key={index}
-              className="capability-card group flex flex-col justify-between bg-[#171717]/80 border border-border rounded-2xl p-7 transition-all duration-300 relative overflow-hidden backdrop-blur-md hover:border-[#f5b907]/40 hover:shadow-[0_0_30px_rgba(245,185,7,0.08)] hover:-translate-y-2"
-            >
-              {/* Top Bar */}
-              <div>
-                <div className="flex justify-between items-center pb-5 border-b border-border">
-                  <span className="text-xs font-mono font-bold text-[#f5b907] bg-[#f5b907]/10 px-2.5 py-1 rounded-md border border-[#f5b907]/20">
-                    {card.serial}
-                  </span>
-
-                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-border flex items-center justify-center text-xl text-white group-hover:scale-110 group-hover:text-[#f5b907] group-hover:border-[#f5b907]/30 transition-all duration-300">
-                    <i className={card.icon}></i>
-                  </div>
-                </div>
-
-                {/* Card Title */}
-                <h3 className="text-xl font-bold text-white group-hover:text-[#f5b907] mt-6 mb-3 transition-colors duration-300 font-sans tracking-tight">
-                  {card.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-sm text-zinc-400 leading-relaxed font-sans">
-                  {card.description}
-                </p>
-              </div>
-
-              {/* Tech Stack Pills at Bottom */}
-              <div className="mt-8 pt-6 border-t border-border">
-                <span className="text-[10px] font-mono uppercase text-zinc-500 tracking-wider block mb-3 font-semibold">
-                  TECH STACK
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {card.stack.map((tech, tIdx) => (
-                    <span
-                      key={tIdx}
-                      className="text-[11px] font-mono text-zinc-300 bg-white/[0.04] border border-border px-2.5 py-1 rounded-md font-medium hover:border-[#f5b907]/40 hover:text-[#f5b907] transition-colors duration-300"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
+          {SERVICES.map((card, idx) => (
+            <BentoServiceCard key={card.id} card={card} index={idx} />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
+
