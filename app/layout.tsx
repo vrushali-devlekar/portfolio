@@ -55,9 +55,9 @@ export const metadata: Metadata = {
   ],
   creator: "Vrushali Devlekar",
   icons: {
-    icon: "/port-1.png",
-    shortcut: "/port-1.png",
-    apple: "/port-1.png",
+    icon: "/vrushali.webp",
+    shortcut: "/vrushali.webp",
+    apple: "/vrushali.webp",
   },
   openGraph: {
     title: "Vrushali Devlekar | Full Stack & Three.js Developer",
