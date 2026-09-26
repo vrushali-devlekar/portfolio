@@ -132,7 +132,7 @@ export default function Hero() {
           {/* Card 01 (Philosophy) */}
           <div className="hero-bottom-box bg-[#09090d]/90 border border-white/10 rounded-2xl p-4 w-48 backdrop-blur-md space-y-1.5 shadow-2xl transition-all hover:border-white/25 flex flex-col justify-between h-[120px]">
             <span className="text-[9px] font-mono tracking-wider text-neutral-400 uppercase">
-              // PHILOSOPHY
+              {"// PHILOSOPHY"}
             </span>
             <div className="flex items-center justify-between gap-1.5">
               <span className="text-xs font-sans font-medium text-white/90 leading-snug">
@@ -162,7 +162,7 @@ export default function Hero() {
           {/* Card 02 (Telemetry / Performance) */}
           <div className="hero-bottom-box bg-[#09090d]/90 border border-white/10 rounded-2xl p-4 w-44 backdrop-blur-md space-y-1.5 shadow-2xl transition-all hover:border-white/25 flex flex-col justify-between h-[120px]">
             <span className="text-[9px] font-mono tracking-wider text-neutral-400 uppercase">
-              // PERFORMANCE
+              {"// PERFORMANCE"}
             </span>
             <div className="flex items-baseline gap-1.5">
               <span className="font-sans text-2xl font-extrabold text-white tracking-tight">

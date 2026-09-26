@@ -42,26 +42,22 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://vrushali-devlekar.vercel.app"),
   title: {
-    default: "Vrushali Devlekar | Full Stack Developer & Developer Tools Hub",
+    default: "Vrushali Devlekar | Full Stack & Creative Developer",
     template: "%s | Vrushali Devlekar",
   },
   description:
-    "Personal portfolio and free browser-native developer tools by Vrushali Devlekar. High-performance web applications, distributed systems, and client-side utilities.",
+    "Personal portfolio and engineering case studies by Vrushali Devlekar. High-performance web systems, distributed architectures, and modern UI engineering.",
   keywords: [
     "Vrushali Devlekar",
     "Full Stack Developer",
-    "Developer Tools",
-    "Free Online Developer Tools",
-    "JSON Formatter",
-    "Image Compressor",
-    "WebP Converter",
-    "Favicon Generator",
-    "Meta Tag Generator",
-    "File Beam",
+    "Creative Developer",
     "Next.js",
     "React",
     "TypeScript",
+    "DevOps",
+    "Docker",
     "Web Performance",
+    "Portfolio",
   ],
   authors: [
     { name: "Vrushali Devlekar", url: "https://github.com/vrushali-devlekar" },

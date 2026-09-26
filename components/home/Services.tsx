@@ -128,7 +128,7 @@ export default function Services() {
                     {service.icon}
                   </div>
                   <span className="font-mono text-xs font-semibold text-zinc-500 group-hover:text-zinc-300 transition-colors">
-                    {service.number} // {service.category}
+                    {service.number} {"//"} {service.category}
                   </span>
                 </div>
 

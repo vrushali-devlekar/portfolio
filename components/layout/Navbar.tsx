@@ -64,7 +64,6 @@ export default function Navbar() {
     { href: "/#home", id: "home", label: "Home" },
     { href: "/#about", id: "about", label: "About" },
     { href: "/projects", id: "projects", label: "Projects" },
-    { href: "/tools", id: "tools", label: "Tools" },
     { href: "/#services", id: "services", label: "Services" },
     { href: "/contact", id: "contact", label: "Contact" },
   ];
@@ -102,8 +101,6 @@ export default function Navbar() {
             const isLinkActive =
               link.id === "projects"
                 ? pathname === "/projects" || pathname.startsWith("/projects/")
-                : link.id === "tools"
-                ? pathname === "/tools" || pathname.startsWith("/tools/")
                 : link.id === "contact"
                 ? pathname === "/contact"
                 : isHome && activeSection === link.id;

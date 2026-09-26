@@ -61,10 +61,9 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "lan-courier",
-    title: "LAN Courier (File Beam)",
-    subtitle: "Browser-to-browser file and clipboard transfer without installing an application.",
+    title: "LAN Courier",
+    subtitle: "Zero-Cloud Peer-to-Peer File & Secret Sharing System",
     image: "/lan-courier.jpg",
-    liveUrl: "/tools/file-beam",
     githubUrl: "https://github.com/miidaystudio/LAN-Courier",
     tags: ["P2P Network", "WebRTC", "E2EE Security", "Local Subnet", "TypeScript"],
     techStack: ["TypeScript", "WebRTC", "Socket.io", "React", "Node.js", "Tailwind CSS"],

@@ -6,7 +6,6 @@ import Hero from "@/components/home/Hero";
 import About from "@/components/home/About";
 import Work from "@/components/home/Work";
 import Services from "@/components/home/Services";
-import ToolsSection from "@/components/home/ToolsSection";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
 
 export default function Home() {
@@ -27,9 +26,9 @@ export default function Home() {
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Vrushali Devlekar — Portfolio & Developer Tools Hub',
+    name: 'Vrushali Devlekar — Portfolio',
     url: 'https://vrushali-devlekar.vercel.app',
-    description: 'Personal portfolio, engineering case studies, and browser-native developer utilities by Vrushali Devlekar.',
+    description: 'Personal portfolio and engineering case studies by Vrushali Devlekar.',
     author: {
       '@type': 'Person',
       name: 'Vrushali Devlekar',
@@ -53,7 +52,6 @@ export default function Home() {
           <Hero />
           <About />
           <Work />
-          <ToolsSection />
           <Services />
         </main>
         <Footer />
