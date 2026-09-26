@@ -7,6 +7,7 @@ import {
   DM_Sans,
 } from "next/font/google";
 import { Providers } from "./providers";
+import { Analytics } from "@vercel/analytics/next";
 import "remixicon/fonts/remixicon.css";
 import "../styles/globals.css";
 
@@ -166,6 +167,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased min-h-screen flex flex-col">
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   );
