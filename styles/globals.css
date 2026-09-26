@@ -77,6 +77,22 @@
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
   }
+  .glass-pill {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+  .ribbed-emerald {
+    background: repeating-linear-gradient(
+      90deg,
+      rgba(34, 197, 94, 0.08) 0px,
+      rgba(34, 197, 94, 0.08) 1.5px,
+      transparent 1.5px,
+      transparent 12px
+    ),
+    radial-gradient(ellipse at 50% 30%, #064e3b 0%, #022c1d 60%, #02140e 100%);
+  }
 }
 
 /* ─── ORIGINAL HERO STRUCTURE ────────────────────── */

@@ -29,12 +29,74 @@ export interface CaseStudy {
 
 export const caseStudies: CaseStudy[] = [
   {
+    slug: "studio-orbit",
+    title: "StudioOrbit",
+    subtitle: "Digital Productivity Cockpit & Visual QA Review Canvas",
+    image: "/studio-orbit.jpg",
+    liveUrl: "https://studio-orbit.vercel.app/",
+    githubUrl: "https://github.com/miidaystudio/studio-orbit",
+    tags: ["Cockpit UI", "Visual QA", "Real-time Telemetry", "Next.js", "Tailwind CSS"],
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    metrics: [
+      "Real-time visual staging coordinate telemetry with sub-millisecond responsiveness",
+      "Streamlined milestone sign-off workflows reducing client QA review cycle by 50%",
+      "Instant Magic Link client authentication with zero friction access",
+    ],
+    architecture: {
+      frontend: "Next.js App Router, TypeScript, Tailwind CSS, Framer Motion",
+      backend: "Next.js API Routes, Server Actions, Edge Functions",
+      database: "PostgreSQL / Supabase with real-time subscriptions",
+      caching: "Edge Cache & Optimistic UI Updates",
+      devops: "Vercel Edge Network, GitHub Actions CI/CD",
+    },
+    star: {
+      situation:
+        "Creative agencies and digital engineering studios frequently struggle with fragmented staging review cycles, disjointed client feedback threads, and opaque retainer burndown tracking across disparate tools.",
+      task: "Engineer StudioOrbit—a unified digital productivity cockpit and visual QA canvas allowing agency teams to manage active deliverables, coordinate visual pinpoint reviews, and track retainer burn-down in real time.",
+      action:
+        "Built a modern responsive web dashboard using Next.js and TypeScript, engineered interactive deliverable cockpit cards with animated burn-down indicators, implemented Magic Link client sign-on, and optimized viewport coordinate pinning for pixel-accurate QA feedback.",
+      result:
+        "Delivered an ultra-responsive, visually refined platform enabling instant client milestone approvals, clear retainer transparency, and accelerated deployment cycles.",
+    },
+  },
+  {
+    slug: "lan-courier",
+    title: "LAN Courier (File Beam)",
+    subtitle: "Browser-to-browser file and clipboard transfer without installing an application.",
+    image: "/lan-courier.jpg",
+    liveUrl: "/tools/file-beam",
+    githubUrl: "https://github.com/miidaystudio/LAN-Courier",
+    tags: ["P2P Network", "WebRTC", "E2EE Security", "Local Subnet", "TypeScript"],
+    techStack: ["TypeScript", "WebRTC", "Socket.io", "React", "Node.js", "Tailwind CSS"],
+    metrics: [
+      "Sub-millisecond local network device discovery and direct handshake",
+      "100% Zero-Cloud data transmission with end-to-end encrypted secret beam",
+      "Seamless multi-gigabyte file transfers with chunked binary streaming",
+    ],
+    architecture: {
+      frontend: "React, TypeScript, WebRTC DataChannels, Tailwind CSS",
+      backend: "Node.js, WebSocket Signaling Server, mDNS Discovery",
+      database: "Zero Cloud / Local IndexedDB ephemeral buffer",
+      caching: "In-memory chunk buffering & stream backpressure",
+      devops: "Docker containerization, Cross-platform P2P daemon",
+    },
+    star: {
+      situation:
+        "Transferring large files, directories, and confidential secrets between local devices often requires uploading to third-party cloud services or managing cumbersome shared network drives.",
+      task: "Build a zero-cloud, high-speed peer-to-peer file and secret exchange platform that operates directly over local networks with end-to-end encryption.",
+      action:
+        "Architected LAN Courier with automatic local subnet discovery, WebRTC DataChannels for direct device-to-device streaming, AES-GCM encryption for secret beams, and a drag-and-drop web interface.",
+      result:
+        "Created a frictionless local transmission tool offering multi-file/directory drag & drop, zero third-party cloud dependence, and blazing fast LAN transfer speeds.",
+    },
+  },
+  {
     slug: "velora-deploy",
     title: "Velora Deploy Dashboard",
-    subtitle: "Enterprise DevOps Automation & UX Platform",
+    subtitle: "Enterprise DevOps Automation & Real-Time Build Telemetry",
     image: "/velora.webp",
     liveUrl: "https://veloraa-deploy.vercel.app/",
-    githubUrl: "https://github.com/vrushali-devlekar/velora-deploy",
+    githubUrl: "https://github.com/vrushali-devlekar/DevOps_Deploy",
     tags: ["One-Click Deploy", "Real-Time Tracking", "DevOps UI", "Security"],
     techStack: ["Next.js", "React", "Node.js", "Redis", "Docker"],
     metrics: [
@@ -60,135 +122,34 @@ export const caseStudies: CaseStudy[] = [
     },
   },
   {
-    slug: "tours-booking",
-    title: "Pack & Explore",
-    subtitle: "High-Concurrency Tourism Booking Platform",
-    image: "/tours.webp",
-    liveUrl: "https://pack-explore.onrender.com/",
-    githubUrl: "https://github.com/vrushali-devlekar/pack-explore",
-    tags: ["Tourism Search", "Real-Time Booking", "Redis Cache", "Indexed DB"],
-    techStack: ["React", "Node.js", "MongoDB", "Redis", "Tailwind"],
+    slug: "coffee-cafe",
+    title: "Coffee Cafe",
+    subtitle: "Artisanal Coffee Brand & Digital Commerce Experience",
+    image: "/coffee-cafe.jpg",
+    liveUrl: "https://coffee-cafe-phi.vercel.app/",
+    githubUrl: "https://github.com/vrushali-devlekar/Coffee-cafe",
+    tags: ["Brand Design", "E-Commerce UI", "React", "Next.js", "Tailwind CSS"],
+    techStack: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
     metrics: [
-      "Boosted database query speeds by 55% via compound indexes",
-      "Maintained 99.9% uptime during simulated flash traffic spikes",
-      "Cut page-weight overhead by 50% via Next/Image WebP formats",
+      "Sub-second page load times with Next.js image optimization and static generation",
+      "Fluid micro-animations and interactive menu browsing with Framer Motion",
+      "100% responsive cross-device layout with tactile design aesthetics",
     ],
     architecture: {
-      frontend: "React, Redux Toolkit, Tailwind CSS",
-      backend: "Node.js, Express, REST APIs",
-      database: "MongoDB Atlas (Replica Sets)",
-      caching: "Redis (Pricing matrices & destination inventories)",
-      devops: "Docker, Nginx, Render Cloud, GitHub Actions",
+      frontend: "Next.js App Router, React, Tailwind CSS, Framer Motion",
+      backend: "Next.js Serverless Functions, Edge Middleware",
+      database: "Headless CMS / Menu Catalog Store",
+      caching: "Incremental Static Regeneration (ISR) & Vercel Edge Cache",
+      devops: "Vercel CI/CD, GitHub Actions",
     },
     star: {
       situation:
-        "The tourist booking client had high search latencies (over 2.4s per query) due to unindexed database Lookups, resulting in an 18% bounce rate during marketing campaigns.",
-      task: "Create a highly interactive tourist lookup engine featuring real-time destination availability, fast search queries, and zero-downtime booking checkouts.",
+        "Traditional boutique cafes often struggle to translate their physical atmosphere, warmth, and handcrafted aesthetic into a compelling, modern digital storefront.",
+      task: "Design and develop an artisanal, high-conversion web experience for Coffee Cafe that reflects brand elegance, presents digital menu items fluidly, and drives online customer engagement.",
       action:
-        "Structured compound indexes on MongoDB search filters, set up a Redis layer cache for pricing matrices, offloaded heavy calculations to background workers, and implemented Next.js Image optimization for seamless media delivery.",
+        "Engineered a bespoke UI featuring warm coffee tones, floating pill navigation, optimized media assets, and smooth scroll interactions tailored for mobile and desktop.",
       result:
-        "Reduced search queries response from 2.4s to under 380ms, dropped booking checkout failures to zero, and increased seasonal conversion rates by 22%.",
-    },
-  },
-  {
-    slug: "gaming-stream",
-    title: "Gaming Stream SaaS",
-    subtitle: "High-Throughput Analytics Dashboard",
-    image: "/game.webp",
-    liveUrl: "https://gaming-stream-demo.vercel.app/",
-    githubUrl: "https://github.com/vrushali-devlekar/gaming-stream-saas",
-    devStatus: true,
-    tags: [
-      "WebSockets",
-      "Data Analytics",
-      "SaaS Control Panel",
-      "Framer Motion",
-    ],
-    techStack: ["Next.js", "Three.js", "TypeScript", "Node.js", "Tailwind"],
-    metrics: [
-      "Synchronized state updates in <150ms via WebSockets",
-      "Reduced CPU overhead by 45% using lightweight SVG graphing overlays",
-      "Lowered database read cycles by 70% using batch queuing writes",
-    ],
-    architecture: {
-      frontend: "Next.js, Tailwind CSS, Recharts, Framer Motion",
-      backend: "Node.js, Fastify, Socket.io",
-      database: "PostgreSQL (Prisma ORM)",
-      caching: "Redis Pub/Sub (State distribution)",
-      devops: "Docker, Kubernetes, AWS EKS",
-    },
-    star: {
-      situation:
-        "High-throughput stream indicators required immediate updates (sub-second telemetry). The existing HTTP-polling dashboard choked the database during peak active streams, causing dashboard freezes.",
-      task: "Refactor the state synchronization pipeline to ingest, aggregate, and distribute streaming statistics to connected clients with minimal delay.",
-      action:
-        "Replaced REST polling with a persistent WebSocket server utilizing Redis Pub/Sub for state distribution across nodes. Leveraged TanStack Query on the frontend for local state caching and UI optimistic updates.",
-      result:
-        "Realized smooth state synchronization with less than 150ms delay, and scaled telemetry updates to support thousands of concurrent active client sessions.",
-    },
-  },
-  {
-    slug: "production-ready-full-stack-starter",
-    title: "Full-Stack Starter Kit",
-    subtitle: "Production-grade Next.js, Express & TypeScript Architecture Starter",
-    image: "",
-    liveUrl: "https://github.com/vrushali-devlekar/Production-Ready-Full-Stack-Starter",
-    githubUrl: "https://github.com/vrushali-devlekar/Production-Ready-Full-Stack-Starter",
-    isBackendOnly: true,
-    tags: ["Boilerplate", "Full-Stack", "TypeScript", "Next.js", "Express", "Open Source"],
-    techStack: ["Next.js", "TypeScript", "Node.js", "Express", "Tailwind CSS", "Docker"],
-    metrics: [
-      "Accelerates new product prototyping speed by 80%",
-      "Pre-configured with authentication, rate-limiting & security headers",
-      "Includes production Docker container setups & CI/CD workflows",
-    ],
-    architecture: {
-      frontend: "Next.js 15, React 19, TypeScript, Tailwind CSS",
-      backend: "Node.js, Express, TypeScript",
-      database: "PostgreSQL / MongoDB Mongoose schemas",
-      devops: "Docker, GitHub Actions",
-    },
-    star: {
-      situation:
-        "Building full-stack web applications from scratch often involves repeating complex boilerplate configuration for authentication, security headers, database schemas, and CI/CD pipelines.",
-      task: "Engineer an open-source, production-ready full-stack template featuring enterprise-grade security, type-safety, clean modular architecture, and automated deployment readiness.",
-      action:
-        "Structured an end-to-end repository with Next.js App Router, Express API layer, TypeScript interfaces, Dockerization, and pre-configured GitHub Actions pipelines.",
-      result:
-        "Created a battle-tested template that cuts initial setup time by 80% and ensures standard security practices across projects.",
-    },
-  },
-  {
-    slug: "env-guard",
-    title: "Env-Guard CLI Tool",
-    subtitle: "Automated Environment Variable Validation & Security CLI Tool",
-    image: "",
-    liveUrl: "https://github.com/vrushali-devlekar/env-guard",
-    githubUrl: "https://github.com/vrushali-devlekar/env-guard",
-    isBackendOnly: true,
-    tags: ["CLI Tool", "DevOps", "Security", "TypeScript", "Open Source"],
-    techStack: ["TypeScript", "Node.js", "CLI", "npm", "GitHub Actions"],
-    metrics: [
-      "Prevents missing environment variable crashes in production pipelines",
-      "Automated schema validation with zero runtime performance overhead",
-      "Integrated seamlessly into GitHub Actions & pre-commit hooks",
-    ],
-    architecture: {
-      frontend: "Terminal CLI Interface",
-      backend: "Node.js, TypeScript",
-      database: "N/A",
-      devops: "npm registry, GitHub Actions",
-    },
-    star: {
-      situation:
-        "Deployments frequently fail or encounter silent runtime errors due to missing, malformed, or leaked secret environment variables in cloud environments.",
-      task: "Develop an automated CLI tool and validation utility to audit, validate, and enforce environment variable schemas prior to build and deployment phases.",
-      action:
-        "Built Env-Guard CLI in TypeScript with schema validation rules, sensitive key detection, and automated integration hooks for Next.js, Node.js, and CI/CD workflows.",
-      result:
-        "Eliminated runtime crashes caused by unconfigured environment variables and streamlined secret auditing across development teams.",
+        "Delivered an enchanting brand platform with near-instant load speeds, high visual engagement, and streamlined customer ordering/inquiry pathways.",
     },
   },
 ];
-
-

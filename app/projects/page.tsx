@@ -22,18 +22,16 @@ export default function ProjectsPage() {
 
   const getCategory = (slug: string) => {
     switch (slug) {
+      case "studio-orbit":
+        return "Web Application / SaaS Cockpit";
+      case "lan-courier":
+        return "P2P Network / WebRTC System";
       case "velora-deploy":
-        return "Web Application / SaaS Platform";
-      case "tours-booking":
-        return "Web Design, Business Website";
-      case "gaming-stream":
-        return "3D Web Application";
-      case "production-ready-full-stack-starter":
-        return "Open Source Boilerplate";
-      case "env-guard":
-        return "Open Source Security CLI";
+        return "DevOps Automation Platform";
+      case "coffee-cafe":
+        return "Brand & E-Commerce Web App";
       default:
-        return "Open Source Project";
+        return "Web Application / SaaS Platform";
     }
   };
 
@@ -99,7 +97,7 @@ export default function ProjectsPage() {
                   SELECTED WORK
                 </span>
               </div>
-              <h1 className="text-4xl sm:text-5xl font-extrabold uppercase tracking-tight text-white mt-2">
+              <h1 className="text-4xl sm:text-5xl font-semibold uppercase tracking-tight text-white mt-2">
                 Projects & Open Source
               </h1>
               <p className="text-zinc-400 text-sm sm:text-base max-w-xl font-sans">
@@ -115,13 +113,14 @@ export default function ProjectsPage() {
                 </p>
               </div>
             ) : isLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div className="w-full aspect-[16/10] bg-zinc-950/60 animate-pulse rounded-2xl border border-slate-900"></div>
                 <div className="w-full aspect-[16/10] bg-zinc-950/60 animate-pulse rounded-2xl border border-slate-900"></div>
                 <div className="w-full aspect-[16/10] bg-zinc-950/60 animate-pulse rounded-2xl border border-slate-900"></div>
                 <div className="w-full aspect-[16/10] bg-zinc-950/60 animate-pulse rounded-2xl border border-slate-900"></div>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {projects?.map((project, idx) => {
                   const isDev = project.devStatus;
 
@@ -226,7 +225,7 @@ export default function ProjectsPage() {
                         {/* Title and Info */}
                         <div className="pt-5 pb-2 px-1">
                           <Link href={`/projects/${project.slug}`}>
-                            <h2 className="text-xl font-extrabold text-white leading-snug hover:text-[#f5b907] transition-colors duration-300 font-sans tracking-tight cursor-pointer">
+                            <h2 className="text-xl font-semibold text-white leading-snug hover:text-[#f5b907] transition-colors duration-300 font-sans tracking-tight cursor-pointer">
                               {project.title}
                             </h2>
                           </Link>

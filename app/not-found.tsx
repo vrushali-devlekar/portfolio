@@ -35,7 +35,7 @@ export default function NotFound() {
               404
             </h1>
 
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">
               Lost in Digital Space
             </h2>
 

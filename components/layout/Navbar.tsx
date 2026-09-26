@@ -1,15 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLenis } from "lenis/react";
-import gsap from "gsap";
 
 export default function Navbar() {
   const pathname = usePathname();
   const lenis = useLenis();
-  const linksContainerRef = useRef<HTMLDivElement>(null);
   const [activeSection, setActiveSection] = useState("home");
   const [isOpen, setIsOpen] = useState(false);
 
@@ -26,7 +24,7 @@ export default function Navbar() {
   useEffect(() => {
     if (pathname !== "/") return;
 
-    const sectionIds = ["home", "about", "work", "services"];
+    const sectionIds = ["home", "about", "services", "contact"];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -48,60 +46,6 @@ export default function Navbar() {
     };
   }, [pathname]);
 
-  // Magnetic Dock Effect for Desktop
-  useEffect(() => {
-    const container = linksContainerRef.current;
-    if (!container) return;
-
-    const items = container.querySelectorAll(".nav-item");
-
-    const handleMouseMoveContainer = (e: MouseEvent) => {
-      if (window.matchMedia("(max-width: 768px)").matches) return;
-
-      const rect = container.getBoundingClientRect();
-      const mouseX = e.clientX - rect.left;
-
-      items.forEach((item) => {
-        const itemRect = item.getBoundingClientRect();
-        const itemCenterX = (itemRect.left + itemRect.right) / 2 - rect.left;
-        const dist = Math.abs(mouseX - itemCenterX);
-        const maxDist = 120;
-
-        let scale = 1;
-        if (dist < maxDist) {
-          const factor = 1 - dist / maxDist;
-          scale = 1 + 0.25 * (factor * factor * factor);
-        }
-
-        gsap.to(item, {
-          scale: scale,
-          y: scale > 1 ? -(scale - 1) * 16 : 0,
-          duration: 0.2,
-          ease: "power1.out",
-        });
-      });
-    };
-
-    const handleMouseLeaveDock = () => {
-      items.forEach((item) => {
-        gsap.to(item, {
-          scale: 1,
-          y: 0,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-      });
-    };
-
-    container.addEventListener("mousemove", handleMouseMoveContainer);
-    container.addEventListener("mouseleave", handleMouseLeaveDock);
-
-    return () => {
-      container.removeEventListener("mousemove", handleMouseMoveContainer);
-      container.removeEventListener("mouseleave", handleMouseLeaveDock);
-    };
-  }, [pathname]);
-
   // Lock body scroll when overlay is open
   useEffect(() => {
     if (isOpen) {
@@ -116,104 +60,52 @@ export default function Navbar() {
 
   const isHome = pathname === "/";
 
-  const navLinks = [
-    { href: "/#home", id: "home", label: "Home", icon: "ri-user-line" },
-    {
-      href: "/#about",
-      id: "about",
-      label: "Summary",
-      icon: "ri-briefcase-line",
-    },
-    {
-      href: "/#work",
-      id: "work",
-      label: "Experience",
-      icon: "ri-file-text-line",
-    },
-    {
-      href: "/#services",
-      id: "services",
-      label: "Skills",
-      icon: "ri-tools-line",
-    },
-    { href: "/projects", id: "projects", label: "Projects", icon: "ri-link" },
+  const menuLinks = [
+    { href: "/#home", id: "home", label: "Home" },
+    { href: "/#about", id: "about", label: "About" },
+    { href: "/projects", id: "projects", label: "Projects" },
+    { href: "/tools", id: "tools", label: "Tools" },
+    { href: "/#services", id: "services", label: "Services" },
+    { href: "/contact", id: "contact", label: "Contact" },
   ];
 
   return (
     <>
-      {/* ─── DESKTOP DOCK NAVBAR ─── */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden md:block">
-        <nav className="flex items-center justify-center glassmorphism bg-card/60 border border-border/80 px-4 py-2 rounded-full shadow-lg border-glow mx-auto w-fit">
-          <div
-            ref={linksContainerRef}
-            className="flex items-center gap-1 sm:gap-2"
-          >
-            {navLinks.map((link) => {
-              const isLinkActive =
-                link.id === "projects"
-                  ? pathname === "/projects"
-                  : isHome && activeSection === link.id;
-
-              return (
-                <Link
-                  key={link.id}
-                  href={link.href}
-                  onClick={(e) =>
-                    link.id !== "projects" && handleNavClick(e, `#${link.id}`)
-                  }
-                  className={`nav-item flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-                    isLinkActive
-                      ? "bg-primary text-primary-foreground shadow-sm"
-                      : "text-muted-foreground hover:text-foreground hover:bg-border/30"
-                  }`}
-                  aria-label={link.label}
-                >
-                  <i className={`${link.icon} text-sm`}></i>
-                  <span className="hidden sm:inline">{link.label}</span>
-                </Link>
-              );
-            })}
-          </div>
-        </nav>
-      </div>
-
-      {/* ─── MOBILE HAMBURGER BUTTON ─── */}
+      {/* ─── TOP RIGHT MINIMALIST DRAWER TRIGGER ─── */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 flex md:hidden items-center justify-center w-14 h-14 rounded-full glassmorphism border border-border/80 text-white shadow-lg border-glow transition-all duration-300 hover:scale-105 active:scale-95 group focus:outline-none"
+        className="fixed top-6 right-6 md:right-12 z-50 w-10 h-10 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-xl flex items-center justify-center text-white hover:border-white/30 hover:bg-white/[0.08] transition-all focus:outline-none active:scale-95 shadow-xl"
         aria-label="Toggle navigation menu"
       >
-        <div className="relative w-6 h-6 flex flex-col justify-center items-center">
-          {/* Morphing hamburger lines */}
+        <div className="relative w-4 h-3 flex flex-col justify-between items-center">
           <span
-            className={`block absolute h-0.5 w-6 bg-white transition-all duration-300 ease-in-out ${
-              isOpen ? "rotate-45 translate-y-0" : "-translate-y-2"
+            className={`block h-[1.5px] w-4 bg-white transition-all duration-300 ease-in-out ${
+              isOpen ? "rotate-45 translate-y-[5px]" : ""
             }`}
           />
           <span
-            className={`block absolute h-0.5 w-6 bg-white transition-all duration-300 ease-in-out ${
-              isOpen ? "opacity-0" : "opacity-100"
-            }`}
-          />
-          <span
-            className={`block absolute h-0.5 w-6 bg-white transition-all duration-300 ease-in-out ${
-              isOpen ? "-rotate-45 translate-y-0" : "translate-y-2"
+            className={`block h-[1.5px] w-4 bg-white transition-all duration-300 ease-in-out ${
+              isOpen ? "-rotate-45 -translate-y-[5px]" : ""
             }`}
           />
         </div>
       </button>
 
-      {/* ─── MOBILE FULL-SCREEN OVERLAY MENU ─── */}
-      <div className={`nav-overlay md:hidden ${isOpen ? "open" : ""}`}>
-        {/* Decorative dynamic glows */}
-        <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-accent/5 rounded-full filter blur-[100px] pointer-events-none"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent/5 rounded-full filter blur-[100px] pointer-events-none"></div>
+      {/* ─── FULL-SCREEN OVERLAY MENU ─── */}
+      <div className={`nav-overlay ${isOpen ? "open" : ""}`}>
+        {/* Decorative dynamic ambient glows */}
+        <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-white/5 rounded-full filter blur-[120px] pointer-events-none"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-emerald-500/5 rounded-full filter blur-[120px] pointer-events-none"></div>
 
-        <nav className="flex flex-col items-center gap-6 z-10">
-          {navLinks.map((link) => {
+        <nav className="flex flex-col items-center gap-7 z-10 font-headline">
+          {menuLinks.map((link) => {
             const isLinkActive =
               link.id === "projects"
-                ? pathname === "/projects"
+                ? pathname === "/projects" || pathname.startsWith("/projects/")
+                : link.id === "tools"
+                ? pathname === "/tools" || pathname.startsWith("/tools/")
+                : link.id === "contact"
+                ? pathname === "/contact"
                 : isHome && activeSection === link.id;
 
             return (
@@ -222,11 +114,13 @@ export default function Navbar() {
                 href={link.href}
                 onClick={(e) => {
                   setIsOpen(false);
-                  if (link.id !== "projects") {
-                    handleNavClick(e, `#${link.id}`);
+                  if (link.href.startsWith("/#")) {
+                    handleNavClick(e, link.href.substring(1));
                   }
                 }}
-                className={`nav-overlay-link ${isLinkActive ? "active" : ""}`}
+                className={`nav-overlay-link text-2xl sm:text-3xl font-semibold tracking-tight uppercase transition-all ${
+                  isLinkActive ? "text-white scale-105" : "text-zinc-400 hover:text-white"
+                }`}
               >
                 {link.label}
               </Link>
@@ -235,7 +129,7 @@ export default function Navbar() {
         </nav>
 
         {/* Footer citation inside overlay */}
-        <div className="absolute bottom-8 text-center text-[10px] font-mono tracking-widest text-zinc-600 uppercase">
+        <div className="absolute bottom-8 text-center text-[10px] font-mono tracking-widest text-zinc-500 uppercase">
           Vrushali Devlekar &copy; 2026
         </div>
       </div>

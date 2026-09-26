@@ -1,23 +1,31 @@
 import type { Metadata } from "next";
 import {
-  DM_Sans,
-  Bebas_Neue,
+  Inter,
+  Plus_Jakarta_Sans,
+  Syne,
   DM_Mono,
-  Playfair_Display,
+  DM_Sans,
 } from "next/font/google";
 import { Providers } from "./providers";
 import "remixicon/fonts/remixicon.css";
 import "../styles/globals.css";
 
-const dmSans = DM_Sans({
+const inter = Inter({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
+});
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
   variable: "--font-sans",
 });
 
-const bebasNeue = Bebas_Neue({
-  weight: "400",
+const syne = Syne({
   subsets: ["latin"],
-  variable: "--font-bebas",
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-syne",
 });
 
 const dmMono = DM_Mono({
@@ -26,38 +34,46 @@ const dmMono = DM_Mono({
   variable: "--font-mono",
 });
 
-const playfairDisplay = Playfair_Display({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-serif",
+  variable: "--font-dm",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://vrushali-devlekar.vercel.app"),
   title: {
-    default: "Vrushali Devlekar | Full Stack & Three.js Developer",
+    default: "Vrushali Devlekar | Full Stack Developer & Developer Tools Hub",
     template: "%s | Vrushali Devlekar",
   },
   description:
-    "Enterprise-grade Full Stack Engineer & Three.js Developer based in Mumbai, India. Specialized in high-performance web systems, interactive WebGL, and modern UI engineering.",
+    "Personal portfolio and free browser-native developer tools by Vrushali Devlekar. High-performance web applications, distributed systems, and client-side utilities.",
   keywords: [
     "Vrushali Devlekar",
     "Full Stack Developer",
-    "Three.js Developer",
+    "Developer Tools",
+    "Free Online Developer Tools",
+    "JSON Formatter",
+    "Image Compressor",
+    "WebP Converter",
+    "Favicon Generator",
+    "Meta Tag Generator",
+    "File Beam",
     "Next.js",
     "React",
     "TypeScript",
-    "Mumbai Developer",
-    "India Software Engineer",
-    "Web Developer Portfolio",
+    "Web Performance",
   ],
   authors: [
     { name: "Vrushali Devlekar", url: "https://github.com/vrushali-devlekar" },
   ],
   creator: "Vrushali Devlekar",
   icons: {
-    icon: "/vrushali.webp",
-    shortcut: "/vrushali.webp",
-    apple: "/vrushali.webp",
+    icon: [
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    shortcut: "/favicon.png",
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     title: "Vrushali Devlekar | Full Stack & Three.js Developer",
@@ -120,7 +136,7 @@ const jsonLd = {
   sameAs: [
     "https://www.linkedin.com/in/vrushali-devlekar/",
     "https://github.com/vrushali-devlekar",
-    "https://www.instagram.com/rushu.jsx/",
+    "https://www.instagram.com/rushu4miiday/",
     "https://x.com/vrushali_i",
   ],
   knowsAbout: [
@@ -144,7 +160,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${dmSans.variable} ${bebasNeue.variable} ${dmMono.variable} ${playfairDisplay.variable}`}
+      className={`${inter.variable} ${plusJakartaSans.variable} ${syne.variable} ${dmMono.variable} ${dmSans.variable}`}
     >
       <head>
         <script

@@ -29,10 +29,12 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-sans)", "DM Sans", "sans-serif"],
-        bebas: ["var(--font-bebas)", "Bebas Neue", "sans-serif"],
+        sans: ["var(--font-inter)", "var(--font-sans)", "Inter", "sans-serif"],
+        display: ["var(--font-syne)", "var(--font-inter)", "sans-serif"],
+        headline: ["var(--font-inter)", "Inter", "sans-serif"],
         mono: ["var(--font-mono)", "DM Mono", "monospace"],
-        serif: ["var(--font-serif)", "Playfair Display", "serif"],
+        bebas: ["var(--font-inter)", "sans-serif"],
+        serif: ["var(--font-inter)", "serif"],
       },
       animation: {
         "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",

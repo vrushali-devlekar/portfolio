@@ -1,278 +1,177 @@
 "use client";
 
-import { useState, useRef, MouseEvent } from "react";
 import { motion } from "framer-motion";
 
-interface ServiceCardData {
-  id: string;
-  serial: string;
+interface ServiceItem {
+  number: string;
+  category: string;
   title: string;
-  subtitle: string;
   description: string;
-  techBadges: string[];
-  widgetType: "terminal_workstation" | "saas_dashboard" | "cloud_cluster";
+  highlights: string[];
+  techStack: string[];
+  icon: React.ReactNode;
+  accentColor: string;
 }
 
-const SERVICES: ServiceCardData[] = [
+const SERVICES: ServiceItem[] = [
   {
-    id: "fullstack-workstation",
-    serial: "01",
-    title: "Code Build & Terminal",
-    subtitle: "Full-Stack Web Apps",
+    number: "01",
+    category: "Full-Stack Development",
+    title: "Full-Stack Web Architecture",
     description:
-      "Type-safe end-to-end architectures, lightning-fast Next.js rendering pipelines, and production-grade maintainability.",
-    techBadges: ["Next.js", "TypeScript", "Node.js", "PostgreSQL", "Tailwind"],
-    widgetType: "terminal_workstation",
+      "Engineering robust, type-safe web applications using Next.js App Router, React, and modular backend APIs designed for high velocity, security, and scalability.",
+    highlights: [
+      "Server-side rendering (SSR) & static optimization",
+      "Type-safe REST & GraphQL API integrations",
+      "Production-grade component systems & SEO",
+    ],
+    techStack: ["Next.js", "React", "TypeScript", "Node.js", "Tailwind CSS"],
+    accentColor: "from-blue-500/20 to-cyan-500/20",
+    icon: (
+      <svg className="w-5 h-5 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+      </svg>
+    ),
   },
   {
-    id: "saas-dashboard",
-    serial: "02",
-    title: "Floating SaaS Dashboard & Metrics",
-    subtitle: "SaaS Products",
+    number: "02",
+    category: "Creative Engineering",
+    title: "3D & Interactive Experiences",
     description:
-      "Translucent purple and neon-violet SaaS analytics HUD displays showing levitating metric widgets, revenue counters, and real-time user activity.",
-    techBadges: ["React", "Next.js", "Three.js", "GraphQL", "Tailwind"],
-    widgetType: "saas_dashboard",
+      "Bringing digital products to life with Three.js, WebGL shader graphics, and fluid 60fps kinetic interactions that elevate brand identity and user engagement.",
+    highlights: [
+      "Interactive 3D scenes & WebGL shaders",
+      "Framer Motion & GSAP kinetic choreographies",
+      "Spatial UI & tactile micro-interactions",
+    ],
+    techStack: ["Three.js", "WebGL", "GSAP", "Framer Motion", "GLSL"],
+    accentColor: "from-amber-500/20 to-orange-500/20",
+    icon: (
+      <svg className="w-5 h-5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+      </svg>
+    ),
   },
   {
-    id: "cloud-cluster",
-    serial: "03",
-    title: "Microservice Cluster & Server Monitor",
-    subtitle: "High-Throughput APIs",
+    number: "03",
+    category: "Systems & Infrastructure",
+    title: "Cloud & Realtime Systems",
     description:
-      "Antigravity cloud server clusters with floating server blades, glowing emerald/cyan light nodes, zero-downtime microservices, and low-latency APIs.",
-    techBadges: ["Cloud Architecture", "Docker", "Kubernetes", "Redis", "gRPC"],
-    widgetType: "cloud_cluster",
+      "Designing distributed microservice architectures, sub-millisecond Redis caching layers, WebSockets, and containerized cloud deployment pipelines.",
+    highlights: [
+      "Low-latency WebSocket & WebRTC streaming",
+      "In-memory caching & rate-limiting with Redis",
+      "Dockerized container builds & automated CI/CD",
+    ],
+    techStack: ["Docker", "Redis", "WebSockets", "PostgreSQL", "WebRTC"],
+    accentColor: "from-emerald-500/20 to-teal-500/20",
+    icon: (
+      <svg className="w-5 h-5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+        <rect x="2" y="4" width="20" height="16" rx="2" strokeWidth="2" />
+      </svg>
+    ),
   },
 ];
 
-function BentoServiceCard({ card, index }: { card: ServiceCardData; index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    setMousePos({ x, y });
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -6;
-    const rotateY = ((x - centerX) / centerX) * 6;
-    setTilt({ x: rotateX, y: rotateY });
-  };
-
-  const handleMouseEnter = () => setIsHovered(true);
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setTilt({ x: 0, y: 0 });
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 1, y: 0 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
-      className="h-full opacity-100"
-    >
-      <div
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        style={{
-          transform: isHovered
-            ? `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`
-            : "perspective(1000px) rotateX(0deg) rotateY(0deg)",
-          transition: isHovered ? "transform 0.1s ease-out" : "transform 0.5s ease-out",
-        }}
-        className="relative h-full rounded-3xl bg-[#101116] border border-[#1E202B] p-7 sm:p-8 overflow-hidden flex flex-col justify-between group transition-colors duration-300 hover:border-[#E05638]/40 shadow-xl backdrop-blur-md"
-      >
-        {/* Radial cursor glow overlay */}
-        <div
-          className="pointer-events-none absolute -inset-px transition-opacity duration-300 rounded-3xl z-0"
-          style={{
-            opacity: isHovered ? 1 : 0,
-            background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, rgba(224, 86, 56, 0.2), transparent 40%)`,
-          }}
-        />
-
-        <div className="relative z-10 flex flex-col h-full justify-between space-y-6">
-          <div>
-            {/* Rich UI Card Visual Header Widget */}
-            <div className="mb-6 rounded-2xl bg-[#0D0E12] border border-[#1E202B] p-2 overflow-hidden min-h-[170px] flex items-center justify-center">
-              
-              {/* CARD 1: Code Build & Terminal */}
-              {card.widgetType === "terminal_workstation" && (
-                <div className="w-full p-4 rounded-xl bg-[#08090C] border border-[#E05638]/30 space-y-3 font-mono text-xs shadow-lg">
-                  <div className="flex items-center justify-between border-b border-[#1E202B] pb-2.5">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
-                      <span className="ml-2 text-[11px] text-neutral-400 font-semibold">terminal/build-v2</span>
-                    </div>
-                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-[#E05638]/10 text-[#E05638] border border-[#E05638]/30 text-[10px] font-semibold">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#E05638] animate-pulse" />
-                      PROD: PASSING
-                    </span>
-                  </div>
-                  <div className="space-y-1.5 text-neutral-300">
-                    <p className="text-neutral-500">$ pnpm build --filter=web</p>
-                    <p className="text-amber-400">► Compiling 142 client & server modules...</p>
-                    <p className="text-emerald-400">✓ Production bundle generated (0.24s)</p>
-                    <div className="flex items-center gap-2 pt-1 text-[11px]">
-                      <span className="px-2 py-0.5 rounded bg-white/[0.05] text-neutral-300">Route (app)</span>
-                      <span className="text-emerald-400">Size: 42.1 kB (Gzip)</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* CARD 2: Floating SaaS Dashboard & Metrics */}
-              {card.widgetType === "saas_dashboard" && (
-                <div className="w-full p-4 rounded-xl bg-[#0A0812] border border-purple-500/30 space-y-3 font-mono text-xs shadow-lg">
-                  <div className="flex items-center justify-between border-b border-[#1E202B] pb-2.5">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
-                      <span className="text-[11px] text-purple-300 font-semibold uppercase tracking-wider">SAAS METRICS HUD</span>
-                    </div>
-                    <span className="text-[10px] text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">LIVE METRICS</span>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    <div className="p-2.5 rounded-lg bg-purple-500/10 border border-purple-500/20">
-                      <span className="block text-[10px] text-neutral-400 uppercase">ARR Growth</span>
-                      <span className="text-sm font-bold text-purple-300">$148.2K</span>
-                      <span className="text-[10px] text-emerald-400 block">+28.4% YoY</span>
-                    </div>
-                    <div className="p-2.5 rounded-lg bg-purple-500/10 border border-purple-500/20">
-                      <span className="block text-[10px] text-neutral-400 uppercase">Active Users</span>
-                      <span className="text-sm font-bold text-purple-300">42,890</span>
-                      <span className="text-[10px] text-purple-400 block">99.8% retention</span>
-                    </div>
-                  </div>
-                  <div className="flex items-end gap-1.5 h-8 pt-1 justify-between px-1">
-                    {[40, 65, 50, 85, 70, 95, 100].map((h, i) => (
-                      <div key={i} className="w-full bg-purple-500/30 rounded-t border-t border-purple-400" style={{ height: `${h}%` }} />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* CARD 3: Microservice Cluster & Server Monitor */}
-              {card.widgetType === "cloud_cluster" && (
-                <div className="w-full p-4 rounded-xl bg-[#060D0C] border border-emerald-500/30 space-y-3 font-mono text-xs shadow-lg">
-                  <div className="flex items-center justify-between border-b border-[#1E202B] pb-2.5">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                      <span className="text-[11px] text-emerald-300 font-semibold uppercase tracking-wider">CLUSTER MONITOR</span>
-                    </div>
-                    <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">0 DOWNTIME</span>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
-                      <span className="block text-[10px] text-neutral-400 uppercase">API Latency</span>
-                      <span className="text-sm font-bold text-emerald-400">14ms</span>
-                      <span className="text-[10px] text-neutral-400 block">p99 &lt; 28ms</span>
-                    </div>
-                    <div className="p-2.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20">
-                      <span className="block text-[10px] text-neutral-400 uppercase">System Uptime</span>
-                      <span className="text-sm font-bold text-cyan-400">99.99%</span>
-                      <span className="text-[10px] text-neutral-400 block">k8s 6 pods active</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between text-[11px] pt-1 text-neutral-400">
-                    <span className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                      Redis Cache: 98% hit
-                    </span>
-                    <span className="text-emerald-400 font-semibold">HEALTHY</span>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Serial, Subtitle & Title */}
-            <div className="space-y-2 mb-3">
-              <div className="flex items-center gap-3">
-                <span className="font-mono text-xs font-bold text-[#E05638] bg-[#E05638]/10 border border-[#E05638]/20 px-2.5 py-1 rounded-lg">
-                  {card.serial}
-                </span>
-                <span className="font-mono text-xs font-semibold text-neutral-400 uppercase tracking-wider">
-                  {card.subtitle}
-                </span>
-              </div>
-              <h3 className="text-xl font-bold text-white group-hover:text-[#E05638] transition-colors duration-300">
-                {card.title}
-              </h3>
-            </div>
-
-            {/* Description */}
-            <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed font-sans">
-              {card.description}
-            </p>
-          </div>
-
-          {/* Tech Stack Badges */}
-          <div className="pt-6 border-t border-[#1E202B]">
-            <span className="text-[10px] font-mono uppercase text-neutral-400 tracking-wider block mb-3 font-semibold">
-              CORE TECH STACK
-            </span>
-            <div className="flex flex-wrap gap-2">
-              {card.techBadges.map((tech) => (
-                <span
-                  key={tech}
-                  className="text-xs font-mono text-neutral-300 bg-white/[0.04] border border-white/[0.08] px-2.5 py-1 rounded-lg font-medium hover:border-[#E05638]/40 hover:text-[#E05638] transition-colors duration-300"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
 export default function Services() {
   return (
-    <section className="relative bg-[#0D0E12] py-24 px-4 sm:px-6 lg:px-12 overflow-hidden border-t border-[#1E202B]" id="services">
+    <section
+      className="relative bg-[#070709] py-24 sm:py-32 px-6 sm:px-10 lg:px-16 overflow-hidden text-white border-t border-white/5"
+      id="services"
+    >
       {/* Background ambient lighting */}
-      <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-[#E05638]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 -right-32 w-[500px] h-[500px] bg-amber-500/[0.03] rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -left-32 w-[500px] h-[500px] bg-cyan-500/[0.03] rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto space-y-12 relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#1E202B]">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 mb-12 border-b border-white/10">
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#E05638] animate-pulse" />
-              <span className="font-mono text-xs sm:text-sm font-semibold tracking-wider text-[#E05638] uppercase">
-                03 CORE STACK & EXPERTISE
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+              <span className="font-mono text-xs tracking-widest text-zinc-400 uppercase">
+                03 CAPABILITIES &amp; ARCHITECTURE
               </span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              WHAT I{" "}
-              <span className="bg-gradient-to-r from-[#E05638] via-[#E05638] to-amber-500 bg-clip-text text-transparent">
-                ENGINEER
-              </span>
+            <h2 className="font-headline text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight uppercase leading-tight">
+              SERVICES &amp; DIGITAL SYSTEMS
             </h2>
           </div>
 
-          <p className="text-xs sm:text-sm text-neutral-400 font-mono max-w-md leading-relaxed">
-            High-performance web architecture, zero-gravity 3D visual experiences, and microservice cloud systems.
+          <p className="text-sm text-zinc-400 font-sans max-w-md leading-relaxed">
+            Synthesizing full-stack engineering reliability, interactive 3D WebGL visuals, and resilient cloud architectures.
           </p>
         </div>
 
-        {/* 3-Column Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
-          {SERVICES.map((card, idx) => (
-            <BentoServiceCard key={card.id} card={card} index={idx} />
+        {/* 3-Column Clean Editorial Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+          {SERVICES.map((service, index) => (
+            <motion.div
+              key={service.number}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group relative rounded-3xl bg-[#0f1015] border border-white/10 p-7 sm:p-8 flex flex-col justify-between shadow-xl transition-all duration-300 hover:border-white/25 hover:-translate-y-1 hover:shadow-2xl overflow-hidden"
+            >
+              {/* Subtle card top glow */}
+              <div
+                className={`absolute top-0 right-0 w-48 h-48 bg-gradient-to-br ${service.accentColor} rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
+              />
+
+              <div className="relative z-10 space-y-6">
+                {/* Top Row: Icon + Number badge */}
+                <div className="flex items-center justify-between">
+                  <div className="w-11 h-11 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center group-hover:scale-105 group-hover:border-white/20 transition-all duration-300">
+                    {service.icon}
+                  </div>
+                  <span className="font-mono text-xs font-semibold text-zinc-500 group-hover:text-zinc-300 transition-colors">
+                    {service.number} // {service.category}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <div>
+                  <h3 className="font-headline text-xl sm:text-2xl font-semibold text-white tracking-tight leading-snug group-hover:text-amber-300 transition-colors duration-300">
+                    {service.title}
+                  </h3>
+                  <p className="mt-3 text-xs sm:text-sm text-zinc-400 font-sans leading-relaxed">
+                    {service.description}
+                  </p>
+                </div>
+
+                {/* Key Deliverables / Highlights */}
+                <div className="pt-2 space-y-2 border-t border-white/5">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 block mb-2 font-semibold">
+                    Key Capabilities
+                  </span>
+                  <ul className="space-y-2">
+                    {service.highlights.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2.5 text-xs text-zinc-300">
+                        <span className="text-amber-400/80 mt-0.5 select-none text-[10px]">✦</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Bottom Tech Pills */}
+              <div className="relative z-10 pt-6 mt-6 border-t border-white/10">
+                <div className="flex flex-wrap gap-1.5">
+                  {service.techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2.5 py-1 rounded-lg text-[10px] font-mono tracking-wider uppercase bg-white/[0.03] text-zinc-300 border border-white/5 group-hover:border-white/10 transition-colors"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>

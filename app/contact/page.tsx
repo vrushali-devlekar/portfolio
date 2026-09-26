@@ -27,7 +27,7 @@ export default function ContactPage() {
                 <span className="text-xs font-semibold uppercase tracking-widest text-accent text-glow">
                   Get in Touch
                 </span>
-                <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-none mt-3 uppercase text-white">
+                <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight leading-none mt-3 uppercase text-white">
                   Let&apos;s build <br />
                   something <br />
                   <em className="text-accent not-italic font-extralight text-glow">
@@ -97,7 +97,7 @@ export default function ContactPage() {
 
                 {/* Instagram */}
                 <a
-                  href="https://www.instagram.com/rushu.jsx/"
+                  href="https://www.instagram.com/rushu4miiday/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3.5 p-3.5 bg-card/20 border border-white/10 rounded-xl hover:border-accent/50 hover:bg-white/[0.04] transition-all group focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
@@ -110,7 +110,7 @@ export default function ContactPage() {
                       Instagram
                     </span>
                     <span className="text-xs sm:text-sm text-zinc-200 group-hover:text-white font-mono truncate">
-                      instagram.com/rushu.jsx
+                      instagram.com/rushu4miiday
                     </span>
                   </div>
                 </a>
@@ -151,7 +151,7 @@ export default function ContactPage() {
                   </span>
                 </div>
 
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-white leading-tight tracking-tight">
                   Ready to discuss a project or role?
                 </h2>
 

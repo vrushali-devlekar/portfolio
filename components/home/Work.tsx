@@ -1,230 +1,210 @@
 "use client";
 
-import { useState, useRef, MouseEvent } from "react";
-import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProjects } from "@/lib/api";
-import { CaseStudy } from "@/lib/caseStudies";
-
-function ProjectCard({ project, index }: { project: CaseStudy; index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    setMousePos({ x, y });
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -8;
-    const rotateY = ((x - centerX) / centerX) * 8;
-    setTilt({ x: rotateX, y: rotateY });
-  };
-
-  const handleMouseEnter = () => setIsHovered(true);
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setTilt({ x: 0, y: 0 });
-  };
-
-  const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 30, scale: 0.96 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 120,
-        damping: 18,
-        delay: index * 0.1,
-      },
-    },
-  };
-
-  return (
-    <motion.div variants={cardVariants} className="h-full">
-      <div
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        style={{
-          transform: isHovered
-            ? `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`
-            : "perspective(1000px) rotateX(0deg) rotateY(0deg)",
-          transition: isHovered ? "transform 0.1s ease-out" : "transform 0.5s ease-out",
-        }}
-        className="relative h-full rounded-2xl bg-[#111217] border border-[#1F212B] overflow-hidden flex flex-col justify-between group transition-colors duration-300 hover:border-[#E05638]/40 shadow-xl"
-      >
-        {/* Radial cursor glow overlay */}
-        <div
-          className="pointer-events-none absolute -inset-px transition-opacity duration-300 rounded-2xl z-0"
-          style={{
-            opacity: isHovered ? 1 : 0,
-            background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, rgba(224, 86, 56, 0.25), transparent 40%)`,
-          }}
-        />
-
-        {/* Card Inner Container */}
-        <div className="relative z-10 flex flex-col h-full justify-between">
-          <div>
-            {/* macOS Browser Mockup Frame Header */}
-            <div className="px-4 py-3 bg-[#0D0E12]/90 border-b border-[#1F212B] flex items-center justify-between gap-3">
-              {/* Window Control Dots */}
-              <div className="flex items-center gap-1.5 shrink-0">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
-              </div>
-
-              {/* URL Address Bar */}
-              <div className="px-3 py-1 rounded-md bg-white/[0.03] border border-white/[0.05] text-[11px] font-mono text-neutral-400 truncate max-w-[180px] sm:max-w-[220px]">
-                https://devlekar.app/{project.slug}
-              </div>
-
-              {/* Status Indicator */}
-              <div className="flex items-center gap-1.5 shrink-0">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#E05638] animate-pulse" />
-                <span className="text-[10px] font-mono text-neutral-400 uppercase hidden sm:inline">Active</span>
-              </div>
-            </div>
-
-            {/* High-Res Mockup Image Container */}
-            <div className="relative w-full aspect-[16/10] overflow-hidden bg-black/40 group/img">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover/img:scale-108"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#111217] via-transparent to-transparent opacity-80" />
-            </div>
-
-            {/* Card Information */}
-            <div className="p-6">
-              <h3 className="text-xl font-bold text-white group-hover:text-[#E05638] transition-colors duration-300">
-                {project.title}
-              </h3>
-            </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="p-6 pt-0">
-            <div className="pt-4 border-t border-[#1F212B] flex items-center justify-between gap-3">
-              <a
-                href={project.liveUrl || `/projects/${project.slug}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#E05638] hover:bg-[#E05638]/90 text-white font-mono text-xs font-semibold tracking-wide transition-all shadow-md hover:shadow-[#E05638]/20"
-              >
-                Live Demo ↗
-              </a>
-              <a
-                href={project.githubUrl || "https://github.com/vrushali-devlekar"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.1] text-white font-mono text-xs font-semibold tracking-wide transition-all"
-              >
-                GitHub ↗
-              </a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </motion.div>
-  );
-}
 
 export default function Work() {
-  const { data: projects, isLoading, error } = useQuery({
+  const { data: projects, isLoading } = useQuery({
     queryKey: ["projects"],
     queryFn: fetchProjects,
   });
 
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
   return (
-    <section className="relative bg-[#0D0E12] py-24 px-4 sm:px-6 lg:px-12 overflow-hidden border-t border-[#1F212B]" id="work">
-      {/* Ambient Glow background decorative element */}
-      <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-[#E05638]/5 rounded-full blur-3xl pointer-events-none" />
-      
-      <div className="max-w-7xl mx-auto space-y-12">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6"
-        >
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="w-2 h-2 rounded-full bg-[#E05638] animate-pulse" />
-              <span className="font-mono text-xs sm:text-sm font-semibold tracking-wider text-[#E05638] uppercase">
-                02 SHIPPED & DELIVERED
-              </span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
-              Things I built that actually scale.
+    <section className="relative bg-[#f8f9fa] text-neutral-900 py-24 sm:py-32 px-6 sm:px-10 lg:px-16 overflow-hidden" id="work">
+      <div className="max-w-7xl mx-auto">
+        
+        {/* ─── SECTION 3 HEADER: SPLIT EDITORIAL ROW ─── */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16 sm:mb-20">
+          {/* Left Column: Heading + View Case Studies Button */}
+          <div className="lg:col-span-6 flex flex-col items-start">
+            <h2 className="font-headline text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-neutral-950 leading-[1.08] mb-8">
+              Brand Strategy & <br />
+              Product Design.
             </h2>
+
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-neutral-950 hover:bg-neutral-800 text-white font-headline text-xs font-bold tracking-wider uppercase transition-all duration-300 shadow-lg group"
+            >
+              <span>View Case Studies</span>
+              <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+            </Link>
           </div>
 
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.04] hover:bg-white/[0.09] border border-[#1F212B] hover:border-[#E05638]/40 text-xs font-mono font-semibold tracking-wider text-white uppercase transition-all duration-300 group shrink-0 w-fit"
-          >
-            VIEW ALL PROJECTS
-            <span className="text-[#E05638] group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform duration-300">
-              ↗
-            </span>
-          </Link>
-        </motion.div>
-
-        {/* Projects Content Grid */}
-        {error ? (
-          <div className="text-center py-12 border border-dashed border-red-500/30 rounded-2xl bg-red-500/5">
-            <p className="text-sm font-mono text-red-400">
-              Failed to load showcase projects. Please try refreshing.
+          {/* Right Column: Statement Paragraphs */}
+          <div className="lg:col-span-6 flex flex-col justify-end lg:pt-4">
+            <p className="text-xl sm:text-2xl text-neutral-900 font-sans font-medium leading-snug tracking-tight mb-4">
+              Case studies – showing how we craft strong brands and resilient architectures that harness the power of modern web technologies with cutting-edge strategy.
+            </p>
+            <p className="text-xs sm:text-sm text-neutral-500 font-sans leading-relaxed max-w-lg">
+              We design clear visual systems, high-concurrency cloud pipelines, and fluid 3D WebGL experiences for modern ambitious products everywhere.
             </p>
           </div>
-        ) : isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="w-full aspect-[4/5] bg-[#111217] animate-pulse rounded-2xl border border-[#1F212B]"
-              />
-            ))}
+        </div>
+
+        {/* ─── 4-CARD STAGGERED BENTO DECK (MATCHING REFERENCE EXACTLY) ─── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 items-stretch">
+          
+          {/* CARD 1: STRATEGY */}
+          <div className="relative rounded-3xl bg-[#0e0e11] text-white p-7 sm:p-8 flex flex-col justify-between shadow-2xl border border-neutral-800 min-h-[360px] group hover:-translate-y-1 transition-transform duration-500">
+            {/* Top pill badge */}
+            <div className="self-start px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-sans font-medium text-white/90">
+              Strategy
+            </div>
+
+            {/* Bottom Content */}
+            <div className="mt-auto pt-16">
+              <span className="text-xl text-neutral-500 font-light block mb-3 select-none">+</span>
+              <h3 className="font-headline text-base sm:text-lg font-semibold text-white leading-snug mb-3">
+                Strategies that define the new standard
+              </h3>
+              <p className="text-xs text-neutral-400 font-sans leading-relaxed">
+                We don&apos;t just follow trends, we build the fundamental architectures that lead industries and guarantee zero downtime.
+              </p>
+            </div>
           </div>
-        ) : (
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={containerVariants}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch"
-          >
-            {projects?.slice(0, 3).map((project, idx) => (
-              <ProjectCard key={project.slug} project={project} index={idx} />
-            ))}
-          </motion.div>
+
+          {/* CARD 2: GROWTH (WITH PRODUCT IMAGE) */}
+          <div className="relative rounded-3xl bg-[#0e0e11] text-white overflow-hidden shadow-2xl border border-neutral-800 flex flex-col justify-between min-h-[360px] group hover:-translate-y-1 transition-transform duration-500">
+            {/* Top pill badge floating over image */}
+            <div className="absolute top-5 left-5 z-10 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-sans font-medium text-white">
+              Growth
+            </div>
+
+            {/* Media showcase image */}
+            <div className="relative w-full h-44 overflow-hidden bg-neutral-900">
+              <img
+                src="/velora.webp"
+                alt="Product High-Velocity Architecture"
+                className="w-full h-full object-cover object-center filter brightness-90 group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e11] via-transparent to-transparent" />
+            </div>
+
+            {/* Bottom Content */}
+            <div className="p-7 sm:p-8 pt-2">
+              <span className="text-xl text-neutral-500 font-light block mb-3 select-none">+</span>
+              <h3 className="font-headline text-base sm:text-lg font-semibold text-white leading-snug mb-3">
+                High-velocity growth, backed by data
+              </h3>
+              <p className="text-xs text-neutral-400 font-sans leading-relaxed">
+                Utilizing sub-millisecond query metrics to architect high-intent pipelines and tangible digital performance.
+              </p>
+            </div>
+          </div>
+
+          {/* CARD 3: CREATIVE (TALL WITH EDITORIAL MODEL/VISUAL) */}
+          <div className="relative rounded-3xl bg-[#0e0e11] text-white overflow-hidden shadow-2xl border border-neutral-800 flex flex-col justify-between min-h-[360px] group hover:-translate-y-1 transition-transform duration-500">
+            {/* Top pill badge */}
+            <div className="absolute top-5 left-5 z-10 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-sans font-medium text-white">
+              Creative
+            </div>
+
+            {/* Media visual */}
+            <div className="relative w-full h-44 overflow-hidden bg-neutral-900">
+              <img
+                src="/tours.webp"
+                alt="Creative 3D Experiences"
+                className="w-full h-full object-cover object-center filter brightness-90 group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e11] via-transparent to-transparent" />
+            </div>
+
+            {/* Bottom Content */}
+            <div className="p-7 sm:p-8 pt-2">
+              <span className="text-xl text-neutral-500 font-light block mb-3 select-none">+</span>
+              <h3 className="font-headline text-base sm:text-lg font-semibold text-white leading-snug mb-3">
+                Radical creativity at the speed of light
+              </h3>
+              <p className="text-xs text-neutral-400 font-sans leading-relaxed">
+                Fluid visual storytelling and WebGL execution that stops users in their tracks and inspires lasting action.
+              </p>
+            </div>
+          </div>
+
+          {/* CARD 4: IMPACTFUL */}
+          <div className="relative rounded-3xl bg-[#0e0e11] text-white p-7 sm:p-8 flex flex-col justify-between shadow-2xl border border-neutral-800 min-h-[360px] group hover:-translate-y-1 transition-transform duration-500">
+            {/* Top pill badge */}
+            <div className="self-start px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-sans font-medium text-white/90">
+              Impactful
+            </div>
+
+            {/* Bottom Content */}
+            <div className="mt-auto pt-16">
+              <span className="text-xl text-neutral-500 font-light block mb-3 select-none">+</span>
+              <h3 className="font-headline text-base sm:text-lg font-semibold text-white leading-snug mb-3">
+                Unstoppable talent, unified vision
+              </h3>
+              <p className="text-xs text-neutral-400 font-sans leading-relaxed">
+                A dedicated full-stack skillset navigating your product from inception to production scale worldwide.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        {/* ─── LIVE PROJECT SPOTLIGHTS ROW (Retaining all Case Studies) ─── */}
+        {projects && projects.length > 0 && (
+          <div className="relative mt-20 pt-16 pb-6 border-t border-neutral-200/90 overflow-hidden">
+            {/* Ambient Gradients */}
+            <div className="absolute -top-20 left-10 w-96 h-96 bg-emerald-500/[0.08] rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-20 right-10 w-96 h-96 bg-amber-500/[0.07] rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-r from-emerald-500/[0.02] via-transparent to-amber-500/[0.02] pointer-events-none" />
+
+            {/* Subtle Dot Grid Pattern */}
+            <div
+              className="absolute inset-0 pointer-events-none opacity-60"
+              style={{
+                backgroundImage: `radial-gradient(#9ca3af 1px, transparent 1px)`,
+                backgroundSize: "20px 20px",
+                maskImage: "radial-gradient(ellipse at center, black 65%, transparent 95%)",
+                WebkitMaskImage: "radial-gradient(ellipse at center, black 65%, transparent 95%)",
+              }}
+            />
+
+            <div className="relative z-10 flex items-center justify-between mb-8">
+              <div>
+                <span className="text-xs font-mono tracking-widest text-neutral-500 uppercase">Featured Case Studies</span>
+                <h3 className="font-headline text-2xl sm:text-3xl font-semibold text-neutral-950 mt-1">Production Builds</h3>
+              </div>
+              <Link href="/projects" className="text-xs font-headline font-semibold uppercase tracking-wider text-neutral-900 hover:text-emerald-700 transition-colors">
+                All Projects ({projects.length}) →
+              </Link>
+            </div>
+
+            <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {projects.slice(0, 4).map((p) => (
+                <div key={p.slug} className="group rounded-2xl bg-white/90 backdrop-blur-sm border border-neutral-200/90 p-5 shadow-sm hover:shadow-xl hover:border-neutral-300 transition-all duration-300 flex flex-col justify-between">
+                  <div>
+                    <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-4 bg-neutral-100">
+                      <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </div>
+                    <h4 className="font-headline font-semibold text-lg text-neutral-950 mb-1">{p.title}</h4>
+                    <p className="text-xs text-neutral-500 line-clamp-2 mb-4 font-sans">{p.subtitle}</p>
+                  </div>
+                  <div className="flex items-center justify-between text-xs font-mono pt-3 border-t border-neutral-100 mt-auto">
+                    {p.liveUrl ? (
+                      <a href={p.liveUrl} target="_blank" rel="noopener noreferrer" className="font-bold text-neutral-900 hover:text-emerald-600 transition-colors">
+                        Live Preview ↗
+                      </a>
+                    ) : (
+                      <Link href={`/projects/${p.slug}`} className="font-bold text-neutral-900 hover:text-emerald-600 transition-colors">
+                        Case Study →
+                      </Link>
+                    )}
+                    {p.githubUrl && (
+                      <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-neutral-900 transition-colors">
+                        GitHub
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         )}
+
       </div>
     </section>
   );

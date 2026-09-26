@@ -27,7 +27,7 @@ export default function GlobalError({
           <i className="ri-error-warning-line text-3xl" />
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+        <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-white">
           Application Error
         </h1>
 

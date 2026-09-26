@@ -61,7 +61,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
               <span className="mini font-mono tracking-widest text-accent uppercase">
                 STAR Case Study
               </span>
-              <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white leading-tight uppercase">
+              <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-white leading-tight uppercase">
                 {project.title}
               </h1>
               <p className="text-muted text-base sm:text-lg">
@@ -73,7 +73,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               {/* Architecture specs */}
               <div className="md:col-span-7 bg-card/45 p-6 rounded-2xl space-y-4 border-glow">
-                <h3 className="text-xs font-bold uppercase tracking-widest text-accent text-glow">
+                <h3 className="text-xs font-semibold uppercase tracking-widest text-accent text-glow">
                   System Architecture
                 </h3>
                 <div className="space-y-3 text-xs">
@@ -127,7 +127,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
               {/* Metrics Specs */}
               <div className="md:col-span-5 bg-card/45 p-6 rounded-2xl flex flex-col justify-between border-glow">
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-widest text-accent text-glow mb-4">
+                  <h3 className="text-xs font-semibold uppercase tracking-widest text-accent text-glow mb-4">
                     Quantifiable Impact
                   </h3>
                   <ul className="space-y-4">
@@ -154,7 +154,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
                   <span className="text-[10px] font-mono font-bold tracking-widest uppercase bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-0.5 rounded">
                     S
                   </span>
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-muted">
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-muted">
                     Situation
                   </h3>
                 </div>
@@ -169,7 +169,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
                   <span className="text-[10px] font-mono font-bold tracking-widest uppercase bg-violet-500/10 text-violet-400 border border-violet-500/20 px-2.5 py-0.5 rounded">
                     T
                   </span>
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-muted">
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-muted">
                     Task
                   </h3>
                 </div>
@@ -184,7 +184,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
                   <span className="text-[10px] font-mono font-bold tracking-widest uppercase bg-[#f5b907]/10 text-[#f5b907] border border-[#f5b907]/20 px-2.5 py-0.5 rounded">
                     A
                   </span>
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-muted">
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-muted">
                     Action
                   </h3>
                 </div>
@@ -199,7 +199,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
                   <span className="text-[10px] font-mono font-bold tracking-widest uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-0.5 rounded">
                     R
                   </span>
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-muted">
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-muted">
                     Result
                   </h3>
                 </div>
